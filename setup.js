@@ -13,14 +13,29 @@ import {
 } from 'react-native';
 
 import HelloComponent from './HelloComponent';
-
+import LifecycleComponent from './LifecycleComponent';
 export default class helloReactNative extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            remove:false,
+        }
+    }
     render() {
+        var view=this.state.remove?null:<LifecycleComponent></LifecycleComponent>
         return (
             <View style={styles.container}>
                 <HelloComponent
-                    name='Android'
+                    name='Android()'
                 />
+                <Text
+                    onPress={() => {
+                        this.setState({
+                            remove: !this.state.remove
+                        })
+                    }}
+                >模拟组件卸载</Text>
+                {view}
             </View>
         );
     }
