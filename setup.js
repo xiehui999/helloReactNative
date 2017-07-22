@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -18,7 +18,9 @@ export default class helloReactNative extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <HelloComponent></HelloComponent>
+                <HelloComponent
+                    name='Android'
+                />
             </View>
         );
     }
