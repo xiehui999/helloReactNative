@@ -15,13 +15,16 @@ import {
 import HelloComponent from './learn/HelloComponent';
 import LifecycleComponent from './learn/LifecycleComponent';
 import PropsTest from './learn/PropsTest';
-import  StateTest from './learn/StateTest'
+import StateTest from './learn/StateTest'
+import RefTest from './learn/RefTest'
+
 export default class helloReactNative extends Component {
     constructor(props) {
         super(props)
         this.state = {
             remove: false,
-            count: 0
+            count: 0,
+            refCount: 0
         }
     }
 
@@ -71,6 +74,24 @@ export default class helloReactNative extends Component {
                     describes1={params.describes1}
                 />
                 <StateTest/>
+                <Text
+                    onPress={() => {
+                        //    获取组件两种方式,1, this,refs.reftest  2,this.refs[reftest]
+                        //     var c=this.refs.reftest.getCount()
+                        //     var c=this.refs['reftest'].getCount()
+                        var c2 = this.reftest.getCount()
+                        this.setState({
+                            refCount: c2,
+                        })
+                    }}
+                >RefTest：refCount={this.state.refCount}</Text>
+                <RefTest
+                    // 定义两种方式
+                    // 方式1
+                    // ref="reftest"
+                    //方式2
+                    ref={reftest => this.reftest = reftest}
+                />
             </View>
         );
     }
