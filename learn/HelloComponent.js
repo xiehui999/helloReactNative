@@ -17,7 +17,7 @@ import {
 * */
 var HelloComponent=React.createClass({
     render(){
-        return <Text>Hello React</Text>
+        return <Text>Hello React {this.props.name}</Text>
 }
 })
 module.exports=HelloComponent;

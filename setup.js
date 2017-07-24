@@ -12,21 +12,23 @@ import {
     View
 } from 'react-native';
 
-import HelloComponent from './HelloComponent';
-import LifecycleComponent from './LifecycleComponent';
+import HelloComponent from './learn/HelloComponent';
+import LifecycleComponent from './learn/LifecycleComponent';
 export default class helloReactNative extends Component {
     constructor(props){
         super(props)
         this.state={
             remove:false,
+            count:0
         }
     }
     render() {
-        var view=this.state.remove?null:<LifecycleComponent></LifecycleComponent>
+        var view=this.state.remove?null:<LifecycleComponent {...this.state}></LifecycleComponent>
+        var text=this.state.remove?'模拟组件装载':'模拟组件卸载'
         return (
             <View style={styles.container}>
                 <HelloComponent
-                    name='Android()'
+                    name='PROPS'
                 />
                 <Text
                     onPress={() => {
@@ -34,7 +36,14 @@ export default class helloReactNative extends Component {
                             remove: !this.state.remove
                         })
                     }}
-                >模拟组件卸载</Text>
+                >{text}</Text>
+                <Text
+                    onPress={()=>{
+                        this.setState({
+                            count:this.state.count+1
+                        })
+                    }}
+                >点击更改props</Text>
                 {view}
             </View>
         );
