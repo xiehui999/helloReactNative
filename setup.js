@@ -19,6 +19,7 @@ import StateTest from './learn/StateTest'
 import RefTest from './learn/RefTest'
 import Students  from './learn/Students'
 import TouchableTest from  './learn/TouchableTest'
+import ImageTest from "./learn/ImageTest";
 
 export default class helloReactNative extends Component {
     constructor(props) {
@@ -97,6 +98,7 @@ export default class helloReactNative extends Component {
                 />
                 <Text>{this.stu.getDescription()}</Text>
                 <TouchableTest/>
+                <ImageTest/>
             </View>
 
         );
