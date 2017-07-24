@@ -17,6 +17,8 @@ import LifecycleComponent from './learn/LifecycleComponent';
 import PropsTest from './learn/PropsTest';
 import StateTest from './learn/StateTest'
 import RefTest from './learn/RefTest'
+import Students  from './learn/Students'
+import TouchableTest from  './learn/TouchableTest'
 
 export default class helloReactNative extends Component {
     constructor(props) {
@@ -26,6 +28,7 @@ export default class helloReactNative extends Component {
             count: 0,
             refCount: 0
         }
+        this.stu=new Students('小王',22,'男')
     }
 
     render() {
@@ -92,7 +95,10 @@ export default class helloReactNative extends Component {
                     //方式2
                     ref={reftest => this.reftest = reftest}
                 />
+                <Text>{this.stu.getDescription()}</Text>
+                <TouchableTest/>
             </View>
+
         );
     }
 }
@@ -113,6 +119,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#333333',
         marginBottom: 5,
+        flexWrap:'nowrap',
     },
 });
 
