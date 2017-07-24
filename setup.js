@@ -11,20 +11,41 @@ import {
     Text,
     View
 } from 'react-native';
-
+//使用组件导出的变量import HelloComponent,{name,address}from './learn/HelloComponent';
 import HelloComponent from './learn/HelloComponent';
 import LifecycleComponent from './learn/LifecycleComponent';
+import PropsTest from './learn/PropsTest';
+import  StateTest from './learn/StateTest'
 export default class helloReactNative extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state={
-            remove:false,
-            count:0
+        this.state = {
+            remove: false,
+            count: 0
         }
     }
+
     render() {
-        var view=this.state.remove?null:<LifecycleComponent {...this.state}></LifecycleComponent>
-        var text=this.state.remove?'模拟组件装载':'模拟组件卸载'
+        var view = this.state.remove ? null : <LifecycleComponent {...this.state}></LifecycleComponent>
+        var text = this.state.remove ? '模拟组件装载' : '模拟组件卸载'
+        //延展操作符...
+        var params = {describes: '我是属性描述', describes1: '我是属性描述1'}
+        /*
+        * 传递属性：
+        *       <PropsTest
+        *          describes={params.describes}
+        *          describes1={params.describes1}
+        *       />
+        *   ES6： :  <PropsTest
+        *        {...params}
+        *       />
+        *
+        *       var {describes,describes1}=params
+        *       <PropsTest
+        *          describes={describes}
+        *          describes1={describes1}
+        *       />
+        * */
         return (
             <View style={styles.container}>
                 <HelloComponent
@@ -38,13 +59,18 @@ export default class helloReactNative extends Component {
                     }}
                 >{text}</Text>
                 <Text
-                    onPress={()=>{
+                    onPress={() => {
                         this.setState({
-                            count:this.state.count+1
+                            count: this.state.count + 1
                         })
                     }}
                 >点击更改props</Text>
                 {view}
+                <PropsTest
+                    describes={params.describes}
+                    describes1={params.describes1}
+                />
+                <StateTest/>
             </View>
         );
     }
