@@ -23,6 +23,7 @@ import {
 export default class LifecycleComponent extends Component {
     constructor(props) {
         super(props)
+        //ES6写法，ES5 getInitialState
         this.state = {
             count: 0,
         }
