@@ -13,17 +13,13 @@ import TestActions from './TestActions'
 import type {TestNavigationState} from './TestNavigationReducer'
 import TestNavigationReducer from './TestNavigationReducer'
 import TestExampleContainer from './TestExampleContainer'
+import TitleBarComponent from './TitleBarComponent'
 
 
 const nativeImageSource = require('nativeImageSource');
-const Linking = require('AsyncStorage');
 const AsyncStorage = require('AsyncStorage');
 const UIManager = require('UIManager');
 const BackHandler = require('BackHandler');
-
-type Props = {
-    exampleFromAppetizeParams: string,
-};
 const HEADER_LOGO_ICON = nativeImageSource({
     android: 'launcher_icon',
     width: 132,
@@ -35,7 +31,6 @@ const HEADER_NAV_ICON = nativeImageSource({
     width: 48,
     height: 48
 });
-const APP_STATE_KEY = 'RNTesterAppState.v2';
 UIManager.setLayoutAnimationEnabledExperimental(true);
 
 export default class ComponentTest extends Component {
@@ -44,17 +39,14 @@ export default class ComponentTest extends Component {
         console.log(ComponentExamplesList)
     }
 
-    props: Props;
     state: TestNavigationState;
 
     componentWillMount() {
         BackHandler.addEventListener('hardwareBackPress', this._handleBackButtonPress);
-
     }
 
     componentDidMount() {
         this.setState(TestNavigationReducer(null, {type: 'InitialAction'}));
-
     }
 
     render() {
@@ -83,12 +75,18 @@ export default class ComponentTest extends Component {
             if (ExampleModule) {
                 return (
                     <View style={styles.container}>
-                        <ToolbarAndroid
+                        {/*                        <ToolbarAndroid
                             logo={HEADER_LOGO_ICON}
                             navIcon={HEADER_NAV_ICON}
                             style={styles.toolbar}
+                            al
                             onIconClicked={() => console.log('onIconClicked')}
                             title={ExampleModule.title}
+                        />*/}
+                        <TitleBarComponent
+                            isShow={true}
+                            title={ExampleModule.title}
+                           
                         />
                         <TestExampleContainer
                             module={ExampleModule}
@@ -103,12 +101,8 @@ export default class ComponentTest extends Component {
         console.log('return')
         return (
             <View style={styles.container}>
-                <ToolbarAndroid
-/*                    logo={HEADER_LOGO_ICON}
-                    navIcon={HEADER_NAV_ICON}*/
-                    onIconClicked={() => console.log('onIconClicked')}
-                    style={styles.toolbar}
-                    title="RNTester"
+                <TitleBarComponent
+                    title="学习记录"
                 />
                 <ExampleList
                     onNavigate={this._handleAction}
