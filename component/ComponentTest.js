@@ -86,7 +86,7 @@ export default class ComponentTest extends Component {
                         <TitleBarComponent
                             isShow={true}
                             title={ExampleModule.title}
-                           
+
                         />
                         <TestExampleContainer
                             module={ExampleModule}
