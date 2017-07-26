@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import ComponentExamplesList from './module'
 import ExampleList from './ExampleList'
-import URIActionMap from './URIActionMap'
+import TestActions from './TestActions'
 
 import type {TestNavigationState} from './TestNavigationReducer'
 import TestNavigationReducer from './TestNavigationReducer'
@@ -43,6 +43,7 @@ export default class ComponentTest extends Component {
         super(props)
         console.log(ComponentExamplesList)
     }
+
     props: Props;
     state: TestNavigationState;
 
@@ -52,7 +53,8 @@ export default class ComponentTest extends Component {
     }
 
     componentDidMount() {
-        this.setState(TestNavigationReducer(null, true));
+        this.setState(TestNavigationReducer(null, {type: 'InitialAction'}));
+
     }
 
     render() {
@@ -68,9 +70,15 @@ export default class ComponentTest extends Component {
         const {
             openExample,
         } = this.state;
-        console.log('openExample:' + openExample)
         if (openExample) {
-            const ExampleModule = ComponentExamplesList[openExample];
+            var ExampleModule;
+            for (var i = 0; i < ComponentExamplesList.length; i++) {
+                if (ComponentExamplesList[i].key == openExample) {
+                    ExampleModule = ComponentExamplesList[i].module
+                    break
+                }
+            }
+            console.log(ComponentExamplesList)
             console.log(ExampleModule)
             if (ExampleModule) {
                 return (
@@ -79,6 +87,7 @@ export default class ComponentTest extends Component {
                             logo={HEADER_LOGO_ICON}
                             navIcon={HEADER_NAV_ICON}
                             style={styles.toolbar}
+                            onIconClicked={() => console.log('onIconClicked')}
                             title={ExampleModule.title}
                         />
                         <TestExampleContainer
@@ -95,8 +104,8 @@ export default class ComponentTest extends Component {
         return (
             <View style={styles.container}>
                 <ToolbarAndroid
-                    logo={HEADER_LOGO_ICON}
-                    navIcon={HEADER_NAV_ICON}
+/*                    logo={HEADER_LOGO_ICON}
+                    navIcon={HEADER_NAV_ICON}*/
                     onIconClicked={() => console.log('onIconClicked')}
                     style={styles.toolbar}
                     title="RNTester"
@@ -110,14 +119,18 @@ export default class ComponentTest extends Component {
     }
 
     _handleAction = (action: Object): boolean => {
+        console.log('_handleAction')
         const newState = TestNavigationReducer(this.state, action);
-        if (this.state !== newState) {
-            this.setState(
-                newState,
-                () => AsyncStorage.setItem(APP_STATE_KEY, JSON.stringify(this.state))
-            );
-            return true;
-        }
+        // if (this.state !== newState) {
+        //     this.setState(
+        //         newState
+        //     );
+        //     return true;
+        // }
+        this.setState(
+            newState
+        );
+        return true;
         return false;
     };
     _handleBackButtonPress = () => {
