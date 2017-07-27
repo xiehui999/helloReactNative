@@ -1,14 +1,12 @@
-
-
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+'use strict';
+import React,{Component} from 'react'
+import {
   StyleSheet,
   Text,
   View,
-} = ReactNative;
+} from 'react-native';
 
-class TestTitle extends React.Component {
+export  default class TestTitle extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -36,5 +34,3 @@ var styles = StyleSheet.create({
     fontWeight: '500',
   },
 });
-
-module.exports = TestTitle;

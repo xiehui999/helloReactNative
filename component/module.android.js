@@ -1,3 +1,4 @@
+'use strict';
 export type ComponentExample = {
     key: string,
     module: Object,

@@ -1,12 +1,7 @@
-
-const ReactNative = require('react-native');
+'use strict';
 const TestActions = require('./TestActions');
-// $FlowFixMe : This is a platform-forked component, and flow seems to only run on iOS?
 const ComponentExamplesList = require('./module');
-
-const {
-  Alert,
-} = ReactNative;
+import {Alert} from 'react-native'
 
 import type { RNTesterAction } from './TestActions';
 
@@ -24,7 +19,7 @@ function PathActionMap(path: string): ?RNTesterAction {
   return null;
 }
 
-function URIActionMap(uri: ?string): ?RNTesterAction {
+export default function URIActionMap(uri: ?string): ?RNTesterAction {
   if (!uri) {
     return null;
   }
@@ -37,4 +32,3 @@ function URIActionMap(uri: ?string): ?RNTesterAction {
   return PathActionMap(path);
 }
 
-module.exports = URIActionMap;

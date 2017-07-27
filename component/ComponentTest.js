@@ -1,11 +1,14 @@
+'use strict';
 import React, {Component} from 'react';
 import {
     AppRegistry,
     View,
-    Text,
     StyleSheet,
-    ToolbarAndroid,
+    UIManager,
+    BackHandler,
 } from 'react-native'
+//nativeImageSource用import？
+const nativeImageSource =require('nativeImageSource')
 import ComponentExamplesList from './module'
 import ExampleList from './ExampleList'
 import TestActions from './TestActions'
@@ -14,12 +17,6 @@ import type {TestNavigationState} from './TestNavigationReducer'
 import TestNavigationReducer from './TestNavigationReducer'
 import TestExampleContainer from './TestExampleContainer'
 import TitleBarComponent from './TitleBarComponent'
-
-
-const nativeImageSource = require('nativeImageSource');
-const AsyncStorage = require('AsyncStorage');
-const UIManager = require('UIManager');
-const BackHandler = require('BackHandler');
 const HEADER_LOGO_ICON = nativeImageSource({
     android: 'launcher_icon',
     width: 132,
@@ -116,12 +113,6 @@ export default class ComponentTest extends Component {
     _handleAction = (action: Object): boolean => {
         console.log('_handleAction')
         const newState = TestNavigationReducer(this.state, action);
-        // if (this.state !== newState) {
-        //     this.setState(
-        //         newState
-        //     );
-        //     return true;
-        // }
         this.setState(
             newState
         );
@@ -149,4 +140,3 @@ const styles = StyleSheet.create({
     },
 });
 AppRegistry.registerComponent('helloReactNative', () => ComponentTest)
-module.exports = ComponentTest;

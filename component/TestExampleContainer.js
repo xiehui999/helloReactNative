@@ -1,23 +1,10 @@
-/**
- * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @providesModule
- */
 'use strict';
+import React, {Component} from 'react';
+import {Platform} from 'react-native'
+import RNTesterBlock from './RNTesterBlock';
+import TestPage from './TestPage';
 
-const React = require('react');
-const {
-    Platform,
-} = require('react-native');
-const RNTesterBlock = require('./RNTesterBlock');
-const RNTesterPage = require('./RNTesterPage');
-
-class TestExampleContainer extends React.Component {
+export  default  class TestExampleContainer extends Component {
     renderExample(example, i) {
         // Filter platform-specific examples
         var {title, description, platform} = example;
@@ -37,20 +24,16 @@ class TestExampleContainer extends React.Component {
         );
     }
 
-    render(): React.Element<any> {
-        console.log(this.props)
-        console.log(this.props.module.examples)
-        console.log(!this.props.module.examples)
+    //  render(): React.Element<any> 区别
+    render() {
         if (!this.props.module.examples) {
             return <this.props.module/>;
         }
 
         return (
-            <RNTesterPage title={this.props.title}>
+            <TestPage title={this.props.title}>
                 {this.props.module.examples.map(this.renderExample)}
-            </RNTesterPage>
+            </TestPage>
         );
     }
 }
-
-module.exports = TestExampleContainer;

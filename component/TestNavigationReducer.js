@@ -4,7 +4,7 @@ export type TestNavigationState = {
     openExample: ?string,
 };
 
-function TestNavigationReducer(state: ?TestNavigationState,
+export default  function TestNavigationReducer(state: ?TestNavigationState,
                                action: any): TestNavigationState {
 
     if (
@@ -36,5 +36,3 @@ function TestNavigationReducer(state: ?TestNavigationState,
     }
     return state;
 }
-
-module.exports = TestNavigationReducer;

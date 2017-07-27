@@ -1,4 +1,4 @@
-
+'use strict';
 export type RNTesterBackAction = {
   type: 'RNTesterBackAction',
 };
@@ -43,5 +43,4 @@ const TestActions = {
   ExampleList,
   ExampleAction,
 };
-
 module.exports = TestActions;

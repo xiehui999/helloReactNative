@@ -1,21 +1,8 @@
+'use strict';
+import React, {PureComponent} from 'react'
+import {TouchableHighlight, Text, StyleSheet, SectionList, View} from 'react-native'
+import TestActions from './TestActions';
 import {ComponentExample} from "./module.android";
-
-const Platform = require('Platform');
-const React = require('react');
-const SectionList = require('SectionList');
-const StyleSheet = require('StyleSheet');
-const Text = require('Text');
-const TextInput = require('TextInput');
-const TouchableHighlight = require('TouchableHighlight');
-const TestActions = require('./TestActions');
-const View = require('View');
-
-import type {
-    RNTesterExample,
-} from './RNTesterList.ios';
-import type {
-    StyleObj,
-} from 'StyleSheetTypes';
 
 type Props = {
     onNavigate: Function,
@@ -23,11 +10,9 @@ type Props = {
         ComponentExamples: Array<ComponentExample>,
     },
     persister: PassProps<*>,
-    searchTextInputStyle: StyleObj,
-    style?: ?StyleObj,
 };
 
-class RowComponent extends React.PureComponent {
+class RowComponent extends PureComponent {
     props: {
         item: Object,
         onNavigate: Function,
@@ -67,7 +52,7 @@ const renderSectionHeader = ({section}) =>
         {section.title}
     </Text>;
 
-class ExampleList extends React.Component {
+export default class ExampleList extends React.Component {
     props: Props
 
     render() {
@@ -171,5 +156,3 @@ const styles = StyleSheet.create({
         height: 35,
     },
 });
-
-module.exports = ExampleList;
