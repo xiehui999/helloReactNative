@@ -1,13 +1,14 @@
 'use strict';
 import React, {Component} from 'react';
 import {Platform} from 'react-native'
-import RNTesterBlock from './RNTesterBlock';
+import TestBlock from './TestBlock';
 import TestPage from './TestPage';
 
-export  default  class TestExampleContainer extends Component {
+export default class TestExampleContainer extends Component {
+    //展示当前页面每一个demo
     renderExample(example, i) {
-        // Filter platform-specific examples
         var {title, description, platform} = example;
+        //过滤指定平台显示的例子
         if (platform) {
             if (Platform.OS !== platform) {
                 return null;
@@ -15,12 +16,12 @@ export  default  class TestExampleContainer extends Component {
             title += ' (' + platform + ' only)';
         }
         return (
-            <RNTesterBlock
+            <TestBlock
                 key={i}
                 title={title}
                 description={description}>
                 {example.render()}
-            </RNTesterBlock>
+            </TestBlock>
         );
     }
 

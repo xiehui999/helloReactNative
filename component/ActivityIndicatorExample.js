@@ -1,11 +1,7 @@
-'use strict';
-import React, {Component} from 'react';
-import {
-    ActivityIndicator,
-    StyleSheet,
-    View
-} from 'react-native';
 
+
+import React, { Component } from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 type State = { animating: boolean; };
 type Timer = number;
 
@@ -32,7 +28,7 @@ class ToggleAnimatingActivityIndicator extends Component {
         this._timer = setTimeout(() => {
             this.setState({animating: !this.state.animating});
             this.setToggleTimeout();
-        }, 2000);
+        }, 8000);
     }
 
     render() {
@@ -47,12 +43,21 @@ class ToggleAnimatingActivityIndicator extends Component {
 }
 
 
-exports.displayName = (undefined: ?string);
-exports.framework = 'React';
-exports.title = '<ActivityIndicator>';
-exports.description = 'Animated loading indicators.';
+//下面也可以以使用exports.displayName
+export const displayName = (undefined: ?string);
+export const framework = 'React';
+export const title = '<ActivityIndicator>';
+export const description = 'Animated loading indicators.';
+/*
+* ActivityIndicator
+* animating:是否顯示指示器，默认为true，表示显示
+* color ：旋转滚轮的前景色
+*size enum('small', 'large') :指示器的大小。small的高度为20，large为36。
+*
+* */
 
-exports.examples = [
+
+export var examples = [
     {
         title: 'Default (small, white)',
         render() {
@@ -71,6 +76,7 @@ exports.examples = [
                 <View>
                     <ActivityIndicator
                         style={[styles.centering]}
+                        color='#cccccc'
                     />
                     <ActivityIndicator
                         style={[styles.centering, {backgroundColor: '#eeeeee'}]}
@@ -80,20 +86,20 @@ exports.examples = [
         }
     },
     {
-        title: 'Custom colors',
+        title: '自定义颜色[#0000ff,#aa00aa,#aa3300,#00aa00]',
         render() {
             return (
                 <View style={styles.horizontal}>
-                    <ActivityIndicator color="#0000ff"/>
-                    <ActivityIndicator color="#aa00aa"/>
-                    <ActivityIndicator color="#aa3300"/>
-                    <ActivityIndicator color="#00aa00"/>
+                    <ActivityIndicator color="#0000ff" />
+                    <ActivityIndicator color="#aa00aa" />
+                    <ActivityIndicator color="#aa3300" />
+                    <ActivityIndicator color="#00aa00" />
                 </View>
             );
         }
     },
     {
-        title: 'Large',
+        title: 'size="large"',
         render() {
             return (
                 <ActivityIndicator
@@ -105,7 +111,7 @@ exports.examples = [
         }
     },
     {
-        title: 'Large, custom colors',
+        title: 'Large自定义颜色',
         render() {
             return (
                 <View style={styles.horizontal}>
@@ -130,13 +136,13 @@ exports.examples = [
         }
     },
     {
-        title: 'Start/stop',
+        title: '使用animating设置暂停开始',
         render() {
-            return <ToggleAnimatingActivityIndicator/>;
+            return <ToggleAnimatingActivityIndicator />;
         }
     },
     {
-        title: 'Custom size',
+        title: '使用transform:scale:1.5',
         render() {
             return (
                 <ActivityIndicator
@@ -148,7 +154,7 @@ exports.examples = [
     },
     {
         platform: 'android',
-        title: 'Custom size (size: 75)',
+        title: '自定义大小 (size: 75)',
         render() {
             return (
                 <ActivityIndicator

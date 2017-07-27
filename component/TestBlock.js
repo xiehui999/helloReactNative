@@ -6,12 +6,14 @@ import {
     View,
 } from 'react-native';
 
-export default class RNTesterBlock extends Component {
+export default class TestBlock extends Component {
+
     props: {
         title?: string,
         description?: string,
     };
-
+    //可以使用defaultProps设置默认属性
+    //属性类型约束
     static propTypes = {
         title: PropTypes.string,
         description: PropTypes.string,
@@ -37,15 +39,13 @@ export default class RNTesterBlock extends Component {
                     {description}
                 </View>
                 <View style={styles.children}>
-                    {
-                        // $FlowFixMe found when converting React.createClass to ES6
-                        this.props.children}
+                    {this.props.children}
                 </View>
             </View>
         );
     }
 }
-
+//fontWeight:定义粗细的字符。400 等同于 normal，而 700 等同于 bold
 var styles = StyleSheet.create({
     container: {
         borderRadius: 3,
@@ -53,7 +53,7 @@ var styles = StyleSheet.create({
         borderColor: '#d6d7da',
         backgroundColor: '#ffffff',
         margin: 10,
-        marginVertical: 5,
+        marginVertical: 15,
         overflow: 'hidden',
     },
     titleContainer: {
@@ -70,17 +70,7 @@ var styles = StyleSheet.create({
         fontWeight: '500',
     },
     descriptionText: {
-        fontSize: 14,
-    },
-    disclosure: {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        padding: 10,
-    },
-    disclosureIcon: {
-        width: 12,
-        height: 8,
+        fontSize: 13,
     },
     children: {
         margin: 10,
