@@ -86,6 +86,7 @@ export default class ComponentTest extends Component {
                         <TitleBarComponent
                             isShow={true}
                             title={ExampleModule.title}
+                            onPress={this._handleBackButtonPress}
 
                         />
                         <TestExampleContainer

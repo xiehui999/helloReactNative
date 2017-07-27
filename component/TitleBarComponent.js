@@ -4,29 +4,27 @@ import {
     View,
     Image,
     StyleSheet,
-    TouchableHighlight
+    TouchableOpacity
 } from 'react-native'
 
 export default class TitleBarComponent extends Component {
     render() {
         console.log(this.props)
         return <View style={styles.titleBarContainer}>
-            {this.props.isShow && <TouchableHighlight
+            <View style={styles.titleCenter}>
+                <Text style={styles.title}>{this.props.title}</Text>
+            </View>
+            {this.props.isShow && <TouchableOpacity
                 style={styles.btnLeft}
-                onPress={() => {
-
-                }}>
+                activeOpacity={0.5}
+                onPress={this.props.onPress}>
                 <Image
                     style={styles.image}
                     source={require('../image/icon/back.png')}
                     reSizeMode={'cover'}
                 />
 
-            </TouchableHighlight>}
-            <View style={styles.titleCenter}>
-                <Text style={styles.title}>{this.props.title}</Text>
-            </View>
-
+            </TouchableOpacity>}
         </View>
     }
 }
