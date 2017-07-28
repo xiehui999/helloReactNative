@@ -30,8 +30,6 @@ class RowComponent extends PureComponent {
 
     render() {
         const {item} = this.props;
-        console.log('111111111111')
-        console.log(this.props)
         return (
             <TouchableHighlight {...this.props} onPress={this._onPress}>
                 <View style={styles.row}>

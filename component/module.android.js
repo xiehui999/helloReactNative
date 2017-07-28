@@ -3,7 +3,7 @@ export type ComponentExample = {
     key: string,
     module: Object,
 };
-const ComponentExamplesList :Array<ComponentExample>=[
+const ComponentExamplesList: Array<ComponentExample> = [
     {
         key: 'ActivityIndicatorExample',
         module: require('./ActivityIndicatorExample'),
@@ -12,5 +12,9 @@ const ComponentExamplesList :Array<ComponentExample>=[
         key: 'ButtonExample',
         module: require('./ButtonExample'),
     },
+    {
+        key: 'ImageExample',
+        module: require('./ImageExample'),
+    },
 ]
-module.exports=ComponentExamplesList
+module.exports = ComponentExamplesList

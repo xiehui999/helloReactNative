@@ -22,9 +22,6 @@ export default  function TestNavigationReducer(state: ?TestNavigationState,
             openExample: null,
         };
     }
-    console.log('TestNavigationState')
-    console.log(!state)
-    console.log(action)
     if (action.type === 'RNTesterExampleAction') {
         for (var i = 0; i < ComponentExamplesList.length; i++) {
             if (ComponentExamplesList[i].key == action.openExample) {

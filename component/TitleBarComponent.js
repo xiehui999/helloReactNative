@@ -10,7 +10,6 @@ import {
 
 export default class TitleBarComponent extends Component {
     render() {
-        console.log(this.props)
         return <View style={styles.titleBarContainer}>
             <View style={styles.titleCenter}>
                 <Text style={styles.title}>{this.props.title}</Text>

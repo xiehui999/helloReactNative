@@ -1,13 +1,13 @@
-// var PropTypes = require('prop-types');
 'use strict';
 import {
     ScrollView,
     StyleSheet,
     View,
 } from 'react-native';
-import React, {Component, PropTypes} from "react"
+import React, {Component} from "react"
+import PropTypes from 'prop-types';
 import TestTitle from './TestTitle';
-
+//PropTypes引入方式不要用import React, {PropTypes} from "react",这种方式要不支持了，在debug时chrome控制台会有错误提示
 export default class TestPage extends Component {
     props: {
         noScroll?: boolean,
