@@ -20,5 +20,10 @@ const ComponentExamplesList: Array<ComponentExample> = [
         key: 'PickerExample',
         module: require('./PickerExample'),
     },
+    {
+        key: 'ProgressBarAndroidExample',
+        module: require('./ProgressBarAndroidExample'),
+        platform: 'android'
+    },
 ]
 module.exports = ComponentExamplesList
