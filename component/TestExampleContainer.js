@@ -28,6 +28,7 @@ export default class TestExampleContainer extends Component {
     //  render(): React.Element<any> 区别
     render() {
         if (!this.props.module.examples) {
+
             return <this.props.module/>;
         }
 

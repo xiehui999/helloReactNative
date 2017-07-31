@@ -16,5 +16,9 @@ const ComponentExamplesList: Array<ComponentExample> = [
         key: 'ImageExample',
         module: require('./ImageExample'),
     },
+    {
+        key: 'PickerExample',
+        module: require('./PickerExample'),
+    },
 ]
 module.exports = ComponentExamplesList
