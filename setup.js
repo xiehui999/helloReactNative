@@ -17,8 +17,8 @@ import LifecycleComponent from './learn/LifecycleComponent';
 import PropsTest from './learn/PropsTest';
 import StateTest from './learn/StateTest'
 import RefTest from './learn/RefTest'
-import Students  from './learn/Students'
-import TouchableTest from  './learn/TouchableTest'
+import Students from './learn/Students'
+import TouchableTest from './learn/TouchableTest'
 import ImageTest from "./learn/ImageTest";
 
 export default class helloReactNative extends Component {
@@ -29,7 +29,7 @@ export default class helloReactNative extends Component {
             count: 0,
             refCount: 0
         }
-        this.stu=new Students('小王',22,'男')
+        this.stu = new Students('小王', 22, '男')
     }
 
     render() {
@@ -58,21 +58,26 @@ export default class helloReactNative extends Component {
                 <HelloComponent
                     name='PROPS'
                 />
-                <Text
-                    onPress={() => {
-                        this.setState({
-                            remove: !this.state.remove
-                        })
-                    }}
-                >{text}</Text>
-                <Text
-                    onPress={() => {
-                        this.setState({
-                            count: this.state.count + 1
-                        })
-                    }}
-                >点击更改props</Text>
-                {view}
+                <View style={{marginTop: 20, marginBottom: 20}}>
+                    <Text>组件的生命周期学习</Text>
+                    <Text
+                        onPress={() => {
+                            this.setState({
+                                remove: !this.state.remove
+                            })
+                        }}
+                    >{text}</Text>
+                    <Text
+                        onPress={() => {
+                            this.setState({
+                                count: this.state.count + 1
+                            })
+                        }}
+                    >点击更改props</Text>
+                    {view}
+
+                </View>
+
                 <PropsTest
                     describes={params.describes}
                     describes1={params.describes1}
@@ -121,7 +126,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#333333',
         marginBottom: 5,
-        flexWrap:'nowrap',
+        flexWrap: 'nowrap',
     },
 });
 
