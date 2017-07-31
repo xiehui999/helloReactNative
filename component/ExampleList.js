@@ -1,6 +1,6 @@
 'use strict';
 import React, {PureComponent} from 'react'
-import {TouchableHighlight, Text, StyleSheet, SectionList, View} from 'react-native'
+import {TouchableHighlight, Text, StyleSheet, SectionList, View, Platform} from 'react-native'
 import TestActions from './TestActions';
 import {ComponentExample} from "./module.android";
 
@@ -30,8 +30,9 @@ class RowComponent extends PureComponent {
 
     render() {
         const {item} = this.props;
+        var platform = item.platform ? item.platform : Platform.OS
         return (
-            <TouchableHighlight {...this.props} onPress={this._onPress}>
+            platform === Platform.OS ? <TouchableHighlight {...this.props} onPress={this._onPress}>
                 <View style={styles.row}>
                     <Text style={styles.rowTitleText}>
                         {item.module.title}
@@ -40,8 +41,9 @@ class RowComponent extends PureComponent {
                         {item.module.description}
                     </Text>
                 </View>
-            </TouchableHighlight>
-        );
+            </TouchableHighlight> : null
+        )
+            ;
     }
 }
 
@@ -87,13 +89,17 @@ export default class ExampleList extends React.Component {
     }
 
     _renderItem = ({item, separators}) => (
-        <RowComponent
+        < RowComponent
             item={item}
-            onNavigate={this.props.onNavigate}
-            onShowUnderlay={separators.highlight}
-            onHideUnderlay={separators.unhighlight}
-        />
-    );
+            onNavigate={this.props.onNavigate
+            }
+            onShowUnderlay={separators.highlight
+            }
+            onHideUnderlay={separators.unhighlight
+            }
+        />: null
+        )
+    ;
 
     _handleRowPress(exampleKey: string): void {
         this.props.onNavigate(TestActions.ExampleAction(exampleKey));
