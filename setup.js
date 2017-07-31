@@ -70,10 +70,10 @@ export default class helloReactNative extends Component {
                     <Text
                         onPress={() => {
                             this.setState({
-                                count: this.state.count + 1
+                                count: Math.floor(Math.random()*10)
                             })
                         }}
-                    >点击更改props</Text>
+                    >设置默认值</Text>
                     {view}
 
                 </View>

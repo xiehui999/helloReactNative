@@ -8,9 +8,9 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
 } from 'react-native';
-// import setup from './setup'
-import ComponentTest from './component/ComponentTest'
+import setup from './setup'
+// import ComponentTest from './component/ComponentTest'
 
-// AppRegistry.registerComponent('helloReactNative', () => setup);
-AppRegistry.registerComponent('helloReactNative', () => ComponentTest);
+AppRegistry.registerComponent('helloReactNative', () => setup);
+// AppRegistry.registerComponent('helloReactNative', () => ComponentTest);
 

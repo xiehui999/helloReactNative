@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {
     Text,
-    View
+    View,
+    StyleSheet
 } from 'react-native';
 /*周期API:https://facebook.github.io/react/docs/react-component.html#componentwillreceiveprops*/
 /*
@@ -21,11 +22,15 @@ import {
 *componentWillUnmount()
 * */
 export default class LifecycleComponent extends Component {
+    static  defaultProps = {
+        count: 5
+    }
+
     constructor(props) {
         super(props)
         //ES6写法，ES5 getInitialState
         this.state = {
-            count: 0,
+            count: this.props.count,
         }
         console.log('constructor')
     }
@@ -45,6 +50,9 @@ export default class LifecycleComponent extends Component {
         console.log('componentWillReceiveProps')
         console.log(this.props)
         console.log(nextProps)
+        this.setState({
+            count: nextProps.count
+        })
     }
 
     //组件是不是要更新，返回值true:表示执行刷新，即执行componentWillUpdate，render，componentDidUpdate。返回false，则不执行后续操作
@@ -75,16 +83,65 @@ export default class LifecycleComponent extends Component {
     }
 
     render() {
-        console.log('render')
-        return <View>
+        return <View style={styles.container}>
             <Text
-                onPress={() => {
-                    this.setState({
-                        count: this.state.count + 1,
-                    })
-                }}
-            >点击更改state，点击了{this.state.count}次</Text>
-            <Text>属性name值：{this.props.count}</Text>
+                style={styles.reduce}
+                onPress={this.reduce}
+            >-</Text>
+            <Text
+                style={styles.text}
+            >{this.state.count}</Text>
+            <Text
+                style={styles.add}
+                onPress={this.add}
+            >+</Text>
         </View>
     }
+
+    reduce = () => {
+        this.setState({
+            count: this.state.count > 1 ? this.state.count - 1 : 0
+        })
+    }
+    add = () => {
+        this.setState({
+            count: this.state.count + 1
+        })
+    }
 }
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        marginBottom: 20,
+        marginTop: 20,
+    },
+    reduce: {
+        width: 50,
+        height: 40,
+        borderWidth: 1,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        borderColor: '#ccc',
+        borderBottomLeftRadius: 5,
+        borderTopLeftRadius: 5
+    },
+    text: {
+        width: 50,
+        height: 40,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        borderColor: '#ccc',
+    },
+    add: {
+        width: 50,
+        height: 40,
+        borderWidth: 1,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        borderColor: '#ccc',
+        borderBottomRightRadius: 5,
+        borderTopRightRadius: 5,
+    }
+})
