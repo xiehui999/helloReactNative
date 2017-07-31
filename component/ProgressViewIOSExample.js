@@ -42,7 +42,6 @@ class ProgressViewExample extends Component {
 
 export const displayName = (undefined: ?string);
 export const framework = 'React';
-export const platform = 'ios';
 export const title = 'ProgressViewIOS';
 export const description = 'ProgressViewIOS';
 export const examples = [{

@@ -30,5 +30,9 @@ const ComponentExamplesList: Array<ComponentExample> = [
         module: require('./ProgressViewIOSExample'),
         platform: 'ios'
     },
+    {
+        key: 'SwitchExample',
+        module: require('./SwitchExample'),
+    },
 ]
 module.exports = ComponentExamplesList
