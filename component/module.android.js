@@ -13,6 +13,10 @@ const ComponentExamplesList: Array<ComponentExample> = [
         module: require('./TextExample'),
     },
     {
+        key: 'TextInputExample',
+        module: require('./TextInputExample'),
+    },
+    {
         key: 'ActivityIndicatorExample',
         module: require('./ActivityIndicatorExample'),
     },
