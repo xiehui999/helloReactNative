@@ -59,7 +59,7 @@ export default class ExampleList extends React.Component {
         const sections = [
             {
                 data: this.props.list,
-                title: 'COMPONENTS',
+                title: '组件',
                 key: 'c',
             },
         ];

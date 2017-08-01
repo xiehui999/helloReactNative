@@ -48,8 +48,6 @@ export default class LifecycleComponent extends Component {
     //组件更新，属性发生改变
     componentWillReceiveProps(nextProps) {
         console.log('componentWillReceiveProps')
-        console.log(this.props)
-        console.log(nextProps)
         this.setState({
             count: nextProps.count
         })
@@ -58,23 +56,17 @@ export default class LifecycleComponent extends Component {
     //组件是不是要更新，返回值true:表示执行刷新，即执行componentWillUpdate，render，componentDidUpdate。返回false，则不执行后续操作
     shouldComponentUpdate(nextProps, nextState) {
         console.log('shouldComponentUpdate')
-        console.log(nextProps)
-        console.log(nextState)
         return true;
     }
 
     //组件更新之前
     componentWillUpdate(nextProps, nextState) {
         console.log('componentWillUpdate')
-        console.log(nextProps)
-        console.log(nextState)
     }
 
     //组件更新之后
     componentDidUpdate(prevProps, prevState) {
         console.log('componentDidUpdate')
-        console.log(prevProps)
-        console.log(prevState)
     }
 
     //组件被移除之前
@@ -83,6 +75,7 @@ export default class LifecycleComponent extends Component {
     }
 
     render() {
+        console.log('render')
         return <View style={styles.container}>
             <Text
                 style={styles.reduce}
