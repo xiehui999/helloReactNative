@@ -5,6 +5,10 @@ export type ComponentExample = {
 };
 const ComponentExamplesList: Array<ComponentExample> = [
     {
+        key: 'ViewExample',
+        module: require('./ViewExample'),
+    },
+    {
         key: 'ActivityIndicatorExample',
         module: require('./ActivityIndicatorExample'),
     },
