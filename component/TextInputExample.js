@@ -1,3 +1,12 @@
+/**
+ * 官方文档对应地址:https://facebook.github.io/react-native/docs/textinput.html
+ *
+ * Code4Android
+ * 我的简书:http://www.jianshu.com/u/d5b531888b2b
+ * 新浪微博:http://weibo.com/745687294
+ * CSDN:http://blog.csdn.net/xiehuimx?viewmode=contents
+ */
+'use strict'
 import React, {Component} from 'react'
 import {
     Text,
@@ -7,6 +16,7 @@ import {
     Platform
 } from 'react-native'
 
+//当multiline=false时，为元素的某一个边添加边框样式（例如：borderBottomColor，borderLeftWidth等）将不会生效
 class ToggleDefaultPaddingExample extends Component {
     constructor(props) {
         super(props);
@@ -18,8 +28,140 @@ class ToggleDefaultPaddingExample extends Component {
             <View>
                 <TextInput style={this.state.hasPadding ? {padding: 0} : null}/>
                 <Text onPress={() => this.setState({hasPadding: !this.state.hasPadding})}>
-                    Toggle padding  {this.state.hasPadding ?'true':'false'}
+                    Toggle padding {this.state.hasPadding ? 'true' : 'false'}
                 </Text>
+            </View>
+        );
+    }
+}
+
+class TextEventsExample extends Component {
+    state = {
+        curText: 'No Event',
+        prevText: 'No Event',
+        prev2Text: 'No Event',
+    }
+    updateText = (text) => {
+        console.log(text)
+        this.setState((state) => {
+            return {
+                curText: text,
+                prevText: state.curText,
+                prev2Text: state.prevText,
+            };
+        });
+    }
+    //onFocus:获取焦点
+    //onBlur :文本框市区焦点时候回调
+    //onChange:文本发生改变时
+    //onChangeText:和onChange功能一样，不同的是该函数直接当文本以参数形式传出
+    //onEndEditing:当文本输入结束后调用此回调函数。
+    //onSubmitEditing:此回调函数当软键盘的确定/提交按钮被按下的时候调用此函数。如果multiline={true}，此属性不可用
+    render() {
+        return (
+            <View>
+                <TextInput
+                    autoCapitalize="none"
+                    placeholder="输入文本查看事件"
+                    autoCorrect={false}
+                    onFocus={() => {
+                        //获取焦点
+                        this.updateText('onFocus')
+                    }}
+                    onBlur={() => this.updateText('onBlur')}
+                    onChange={(event) => this.updateText('onChange  文本:' + event.nativeEvent.text)}
+                    onChangeText={(text) => this.updateText('onChangeText  文本:' + text)}
+                    onContentSizeChange={(event) => this.updateText('onContentSizeChange size:' + event.nativeEvent.contentSize)}
+                    onEndEditing={(event) => this.updateText('onEndEditing 文本: ' + event.nativeEvent.text)}
+                    onSubmitEditing={(event) => this.updateText(
+                        'onSubmitEditing text: ' + event.nativeEvent.text
+                    )}
+                    style={styles.singleLine}
+                />
+                <Text style={styles.eventLabel}>
+                    (current:{this.state.curText}){'\n'}
+                    (prev: {this.state.prevText}){'\n'}
+                    (prev2: {this.state.prev2Text})
+                </Text>
+            </View>
+        )
+    }
+
+}
+
+class AutoExpandingTextInput extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            height: 0,
+        };
+    }
+
+    render() {
+        return (
+            <TextInput
+                {...this.props}
+                multiline={true}
+                onContentSizeChange={(event) => {
+                    this.setState({height: event.nativeEvent.contentSize.height});
+                }}
+                style={[styles.default, {height: Math.min(200, Math.max(35, this.state.height))}]}
+            />
+        );
+    }
+}
+
+class BlurOnSubmitExample extends React.Component {
+    focusNextField = (nextField) => {
+        this.refs[nextField].focus();
+    };
+
+//如果为true，文本框会在提交的时候失焦。对于单行输入框默认值为true，多行则为false。注意：对于多行输入框来说，
+//如果将blurOnSubmit设为true，则在按下回车键时就会失去焦点同时触发onSubmitEditing事件，而不会换行
+    render() {
+        return (
+            <View>
+                <TextInput
+                    ref="1"
+                    style={styles.singleLine}
+                    placeholder="blurOnSubmit = false"
+                    returnKeyType="next"
+                    blurOnSubmit={false}
+                    onSubmitEditing={() => this.focusNextField('2')}
+                />
+                <TextInput
+                    ref="2"
+                    style={styles.singleLine}
+                    keyboardType="email-address"
+                    placeholder="blurOnSubmit = false"
+                    returnKeyType="next"
+                    blurOnSubmit={false}
+                    onSubmitEditing={() => this.focusNextField('3')}
+                />
+                <TextInput
+                    ref="3"
+                    style={styles.singleLine}
+                    keyboardType="url"
+                    placeholder="blurOnSubmit = false"
+                    returnKeyType="next"
+                    blurOnSubmit={false}
+                    onSubmitEditing={() => this.focusNextField('4')}
+                />
+                <TextInput
+                    ref="4"
+                    style={styles.singleLine}
+                    keyboardType="numeric"
+                    placeholder="blurOnSubmit = false"
+                    blurOnSubmit={false}
+                    onSubmitEditing={() => this.focusNextField('5')}
+                />
+                <TextInput
+                    ref="5"
+                    style={styles.singleLine}
+                    keyboardType="numbers-and-punctuation"
+                    placeholder="blurOnSubmit = true"
+                    returnKeyType="done"
+                />
             </View>
         );
     }
@@ -63,7 +205,7 @@ export const examples = [
     {
         title: '自动大写默写字符(键盘输入时)',
         render() {
-            //words:第一个单词,sentences:m每一个橘子第一个字母,characters：所以字符
+            //autoCapitalize:控制TextInput是否要自动将特定字符切换为大写words:第一个单词,sentences:每一句第一个字母,characters：所以字符
             var autoCapitalizeTypes = [
                 'none',
                 'sentences',
@@ -187,6 +329,7 @@ export const examples = [
     {
         title: '多行输入',
         render() {
+            //autoCorrect:拼写是否自动纠正
             return (
                 <View>
                     <TextInput
@@ -230,7 +373,7 @@ export const examples = [
         }
     }, {
         title: 'Return key',
-        render(){
+        render() {
             var returnKeyTypes = [
                 'none',
                 'go',
@@ -297,6 +440,36 @@ export const examples = [
         render() {
             return <ToggleDefaultPaddingExample/>
         }
+    },
+    {
+        title: '事件监听',
+        render() {
+            return (
+                <TextEventsExample/>
+            )
+        }
+    },
+    {
+        title: 'Auto-expanding',
+        render: function () {
+            //enablesReturnKeyAutomatically(ios):如果为true，键盘会在文本框内没有文字的时候禁用确认按钮。默认值为false
+            return (
+                <View>
+                    <AutoExpandingTextInput
+                        placeholder="height increases with content"
+                        defaultValue="React Native enables you to build world-class application experiences on native platforms using a consistent developer experience based on JavaScript and React. The focus of React Native is on developer efficiency across all the platforms you care about — learn once, write anywhere. Facebook uses React Native in multiple production apps and will continue investing in React Native."
+                        enablesReturnKeyAutomatically={true}
+                        returnKeyType="done"
+                    />
+                </View>
+            );
+        }
+    },
+    {
+        title: '提交时失去焦点',
+        render() {
+            return <BlurOnSubmitExample/>
+        }
     }]
 const styles = StyleSheet.create({
     multiline: {
@@ -307,7 +480,7 @@ const styles = StyleSheet.create({
     },
     eventLabel: {
         margin: 3,
-        fontSize: 12,
+        fontSize: 14,
     },
     singleLine: {
         fontSize: 16,
