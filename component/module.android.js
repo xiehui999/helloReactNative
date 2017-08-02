@@ -50,6 +50,15 @@ const ComponentExamplesList: Array<ComponentExample> = [
         key: 'ToolbarAndroidExample',
         module: require('./ToolbarAndroidExample'),
         platform: 'android'
+    },
+    {
+        key: 'TabBarIOSExample',
+        module: require('./TabBarIOSExample'),
+        platform: 'ios'
+    },
+    {
+        key: 'StatusBarExample',
+        module: require('./StatusBarExample'),
     }
 ]
 module.exports = ComponentExamplesList
