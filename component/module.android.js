@@ -63,6 +63,10 @@ const ComponentExamplesList: Array<ComponentExample> = [
     {
         key: 'SliderExample',
         module: require('./SliderExample'),
-    }
+    },
+    {
+        key: 'ModalExample',
+        module: require('./ModalExample'),
+    },
 ]
 module.exports = ComponentExamplesList
