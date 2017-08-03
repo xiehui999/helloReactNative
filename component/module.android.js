@@ -68,5 +68,9 @@ const ComponentExamplesList: Array<ComponentExample> = [
         key: 'ModalExample',
         module: require('./ModalExample'),
     },
+    {
+        key: 'TouchableExample',
+        module: require('./TouchableExample'),
+    },
 ]
 module.exports = ComponentExamplesList
