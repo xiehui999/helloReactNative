@@ -140,13 +140,14 @@ export const examples = [
         render() {
             return <SliderDefault trackImage={require('./file/slider.png')}/>;
         }
-    }, {
+    },
+    {
         title: '指定一个滑块左侧(minimumTrackImage)和右侧(maximumTrackImage)轨道背景图',
         platform: 'ios',
         render() {
             return <SliderDefault
-                minimumTrackImage={require('./slider-left.png')}
-                maximumTrackImage={require('./slider-right.png')}/>;
+                minimumTrackImage={require('./file/slider-left.png')}
+                maximumTrackImage={require('./file/slider-right.png')}/>;
         }
     }
 ]
