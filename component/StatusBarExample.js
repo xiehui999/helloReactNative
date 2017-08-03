@@ -290,7 +290,9 @@ class  StatusBarStaticAndroidExample extends Component{
                 <TouchableHighlight
                     style={styles.wrapper}
                     onPress={() => {
+                        //设置状态栏是否透明
                         StatusBar.setTranslucent(false);
+                        //设置状态栏背景色
                         StatusBar.setBackgroundColor('black', true);
                     }}>
                     <View style={styles.button}>
@@ -320,6 +322,7 @@ class StatusBarStaticIOSExample extends React.Component {
                 <TouchableHighlight
                     style={styles.wrapper}
                     onPress={() => {
+                        //显示／隐藏状态栏(是否隐藏状态栏,状态栏显示状态的动画过渡效果)
                         StatusBar.setHidden(false, 'fade');
                     }}>
                     <View style={styles.button}>
@@ -329,6 +332,7 @@ class StatusBarStaticIOSExample extends React.Component {
                 <TouchableHighlight
                     style={styles.wrapper}
                     onPress={() => {
+                        //设置状态栏样式，(参数（将要设置的状态栏样式，改变状态栏显示状态的动画过渡效果）)，对应属性barStyle,nimated
                         StatusBar.setBarStyle('default', true);
                     }}>
                     <View style={styles.button}>
@@ -347,6 +351,7 @@ class StatusBarStaticIOSExample extends React.Component {
                 <TouchableHighlight
                     style={styles.wrapper}
                     onPress={() => {
+                        //
                         StatusBar.setNetworkActivityIndicatorVisible(true);
                     }}>
                     <View style={styles.button}>
