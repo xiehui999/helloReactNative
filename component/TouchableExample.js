@@ -65,6 +65,72 @@ export const examples = [
             )
         }
     },
+    {
+        title: '触摸有动画效果',
+        description: '支持单独的view作为子节点，利用原生来渲染触摸反馈(Android5.0 MD效果)',
+        platform: 'android',
+        render() {
+            //TouchableNativeFeedback子节点必须是View，否则没有效果.w我用Text,Image做字视图没点击反馈效果,onPress可以回调
+            //useForeground:6.0及以上版本有效
+            //background:设置反馈的背景类型,值如下
+            //TouchableNativeFeedback.SelectableBackground()安卓主题默认的对于被选中对象的背景。(?android:attr/selectableItemBackground)
+            //TouchableNativeFeedback.SelectableBackgroundBorderless() 安卓主题默认的对于被选中的无边框对象的背景。(?android:attr/selectableItemBackgroundBorderless)>21
+            //TouchableNativeFeedback.Ripple(color, borderless) >21按下时涟漪效果,第一个参数为颜色，设置涟漪颜色，第二个参数设置涟漪是否扩展到视图之外
+            const mScale = new Animated.Value(1);
+            Animated.timing(mScale, {toValue: 0.3, duration: 1000}).start;
+            const style = {
+                backgroundColor: '#38adff',
+                width: 200,
+                height: 50,
+                transform: [{scale: mScale}]
+            }
+            return (
+                <View>
+                    <TouchableNativeFeedback
+                        onPress={() => console.log('onPress')}
+                    >
+                        <View style={{width: 200, height: 50, backgroundColor: '#38adff', marginBottom: 15}}>
+                            <Text>点击我试试</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                    <View>
+                        <Text>下面使用了background属性</Text>
+                    </View>
+                    <TouchableNativeFeedback
+                        onPress={() => console.log('onPress')}
+                        background={TouchableNativeFeedback.SelectableBackground()}>
+                        <View style={{width: 200, height: 50, backgroundColor: '#38adff', marginBottom: 15}}>
+                            <Text>SelectableBackground()有边框</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                    <TouchableNativeFeedback
+                        onPress={() => console.log('onPress')}
+                        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}>
+                        <View style={{width: 200, height: 50, backgroundColor: '#38adff', marginBottom: 15}}>
+                            <Text>SelectableBackgroundBorderless()无边框</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+
+                    <TouchableNativeFeedback
+                        onPress={() => console.log('onPress')}
+                        useForeground={true}
+                        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}>
+                        <View style={{width: 200, height: 50, backgroundColor: '#38adff', marginBottom: 15}}>
+                            <Text>useForeground设置了true,将使用父视图背景色</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+
+                    <TouchableNativeFeedback
+                        onPress={() => console.log('onPress')}
+                        background={TouchableNativeFeedback.Ripple('#ff0000', false)}>
+                        <Animated.View style={style}>
+                            <Text>Ripple</Text>
+                        </Animated.View>
+                    </TouchableNativeFeedback>
+                </View>
+            )
+        }
+    }
 ]
 const styles = StyleSheet.create({
     row: {
