@@ -20,13 +20,56 @@ import {
     Text,
     TouchableOpacity,
     TouchableHighlight,
-    TouchableWithoutFeedback,
     TouchableNativeFeedback,
     View,
     Platform
 } from 'react-native'
 
 var heartImage = {uri: 'https://facebook.github.io/react/img/logo_small_2x.png'};
+
+
+class TouchableFeedbackEvents extends Component {
+    state = {
+        eventLog: []
+    }
+    _appendEvent = (eventName) => {
+        var limit = 6;
+        var eventLog = this.state.eventLog.slice(0, limit - 1);
+        //unshift在数组头部添加一个元素
+        var tempName = eventName
+        if (eventName === 'pressIn' && this.props.delayPressIn !== undefined) {
+            tempName = eventName + '--' + this.props.delayPressIn + 'ms 延迟';
+        } else if (eventName === 'pressOut' && this.props.delayPressOut !== undefined) {
+            tempName = eventName + '--' + this.props.delayPressOut + 'ms 延迟';
+        } else if (eventName === 'longPress' && this.props.delayLongPress !== undefined) {
+            tempName = eventName + '--' + this.props.delayLongPress + 'ms 延迟';
+        }
+        eventLog.unshift(tempName);
+        this.setState({eventLog});
+    }
+
+    render() {
+        return (
+            <View>
+                <View style={[styles.row, {justifyContent: 'center'}]}>
+                    <TouchableOpacity
+                        style={[styles.wrapper]}
+                        activeOpacity={0.4}
+                        {...this.props}
+                        onPress={() => this._appendEvent('press')}
+                        onPressIn={() => this._appendEvent('pressIn')}
+                        onPressOut={() => this._appendEvent('pressOut')}
+                        onLongPress={() => this._appendEvent('longPress')}>
+                        <Text style={styles.button}>{this.props.buttonText}</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.eventLogBox}>
+                    {this.state.eventLog.map((e, ii) => <Text key={ii}>{e}</Text>)}
+                </View>
+            </View>
+        )
+    }
+}
 
 export const description = '可触摸按压系列组件例子';
 export const title = '<Touchable*>系列组件';
@@ -70,7 +113,7 @@ export const examples = [
         description: '支持单独的view作为子节点，利用原生来渲染触摸反馈(Android5.0 MD效果)',
         platform: 'android',
         render() {
-            //TouchableNativeFeedback子节点必须是View，否则没有效果.w我用Text,Image做字视图没点击反馈效果,onPress可以回调
+            //TouchableNativeFeedback子节点必须是View，否则没有效果.我用Text,Image做字视图没点击反馈效果,onPress可以回调
             //useForeground:6.0及以上版本有效
             //background:设置反馈的背景类型,值如下
             //TouchableNativeFeedback.SelectableBackground()安卓主题默认的对于被选中对象的背景。(?android:attr/selectableItemBackground)
@@ -130,7 +173,64 @@ export const examples = [
                 </View>
             )
         }
+    },
+    {
+        title: '触摸事件',
+        description: '<Touchable*>组件有属性onPress,onPressIn,onPressOut,onLongPress监听触摸响应回调',
+        render() {
+            return <TouchableFeedbackEvents
+                buttonText="点击我查看事件回调"
+            />
+        }
+    },
+    {
+        title: '设置触摸事件的延迟时间',
+        description: 'delayPressIn,delayPressOut,delayLongPresss属性，指定对应事件延迟调用时间',
+        render() {
+            return <TouchableFeedbackEvents
+                buttonText="点击我观察事件延迟时间"
+                delayPressIn={400}
+                delayPressOut={1000}
+                delayLongPress={800}
+            />
+        }
+    },
+    {
+        title: '设置disabled为true',
+        render() {
+            return (
+                <View>
+                    <TouchableOpacity disabled={true} style={[styles.row, {padding: 10}]}>
+                        <Text style={styles.disabledButton}>Disabled TouchableOpacity</Text>
+                    </TouchableOpacity>
+                    <TouchableHighlight
+                        activeOpacity={1}
+                        disabled={true}
+                        animationVelocity={0}
+                        underlayColor="rgb(210, 230, 255)"
+                        style={[styles.row, {padding: 10}]}
+                        onPress={() => console.log('clicked')}>
+                        <Text style={styles.disabledButton}>
+                            Disabled TouchableHighlight
+                        </Text>
+                    </TouchableHighlight>
+                    {Platform.OS === 'android' &&
+                    <TouchableNativeFeedback
+                        disabled={true}
+                        onPress={() => console.log('clicked')}
+                        background={TouchableNativeFeedback.SelectableBackground()}>
+                        <View style={[styles.row, {padding: 10}]}>
+                            <Text style={[styles.disabledButton, {padding: 10}]}>
+                                Disabled TouchableNativeFeedback
+                            </Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                    }
+                </View>
+            )
+        }
     }
+
 ]
 const styles = StyleSheet.create({
     row: {
@@ -151,5 +251,20 @@ const styles = StyleSheet.create({
     wrapperCustom: {
         borderRadius: 8,
         padding: 6,
+    },
+    eventLogBox: {
+        padding: 10,
+        margin: 10,
+        height: 120,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: '#f0f0f0',
+        backgroundColor: '#f9f9f9',
+    },
+    button: {
+        color: '#007AFF',
+    },
+    disabledButton: {
+        color: '#007AFF',
+        opacity: 0.5,
     },
 })
