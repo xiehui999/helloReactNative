@@ -81,6 +81,10 @@ const ComponentExamplesList: Array<ComponentExample> = [
         module: require('./ListViewGridLayoutExample'),
     },
     {
+        key: 'ListViewPagingExample',
+        module: require('./ListViewPagingExample'),
+    },
+    {
         key: 'SwipeableListViewExample',
         module: require('./SwipeableListViewExample'),
     },
