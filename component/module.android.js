@@ -77,6 +77,10 @@ const ComponentExamplesList: Array<ComponentExample> = [
         module: require('./ScrollViewExample'),
     },
     {
+        key: 'RefreshControlExample',
+        module: require('./RefreshControlExample'),
+    },
+    {
         key: 'ListViewExample',
         module: require('./ListViewExample'),
     },
