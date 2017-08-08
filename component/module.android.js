@@ -100,11 +100,16 @@ const ComponentExamplesList: Array<ComponentExample> = [
 const Modules = {};
 
 const APIExamples: Array<ComponentExample> = [
-    ]
+    {
+        key: 'DatePickerExample',
+        module: require('./DatePickerExample'),
+        platform:'android'
+    },
+]
 APIExamples.concat(ComponentExamplesList).forEach(Example => {
     Modules[Example.key] = Example.module;
 });
-const TestExamplesList={
+const TestExamplesList = {
     ComponentExamplesList,
     APIExamples,
     Modules
