@@ -73,6 +73,10 @@ const ComponentExamplesList: Array<ComponentExample> = [
         module: require('./TouchableExample'),
     },
     {
+        key: 'ScrollViewExample',
+        module: require('./ScrollViewExample'),
+    },
+    {
         key: 'ListViewExample',
         module: require('./ListViewExample'),
     },

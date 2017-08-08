@@ -26,7 +26,7 @@ const URLS = [
     require('./Thumbnails/victory.png'),
 ];
 const textString = ''
-const NUM_SECTIONS = 100;
+const NUM_SECTIONS = 6;
 const NUM_ROWS_PER_SECTION = 10;
 
 class ListViewItem extends Component {
@@ -59,8 +59,7 @@ class ListViewItem extends Component {
                 {this.state.dir === 'column' ?
                     <Text>
                         {this.props.text} 我是一个文本.
-                    </Text> :
-                    <Text/>
+                    </Text> :null
                 }
             </TouchableOpacity>
         )
@@ -76,6 +75,7 @@ class ListViewItem extends Component {
     }
 }
 
+//stickySectionHeadersEnabled设置了没有效果？没找到原因,
 class ListViewPagingExample extends Component {
     static title = '<ListView> - Paging';
     static description = '给列表增加Header和Footer以及section，实现layout动画';
@@ -125,7 +125,7 @@ class ListViewPagingExample extends Component {
                 renderRow={this._renderRow}
                 renderFooter={this._renderFooter}
                 initialListSize={10}
-                pageSize={4}
+                pageSize={1}
                 renderSectionHeader={this._renderSectionHeader}
                 renderHeader={this._renderHeader}
                 scrollRenderAheadDistance={500}
