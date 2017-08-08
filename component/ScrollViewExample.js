@@ -27,10 +27,14 @@ const ITEMS_SIZE = 10;
 //scrollEnabled:bool是否允许滚动，默认true
 //pagingEnabled:为true时，滚动条会停在滚动视图的尺寸的整数倍位置。这个可以用在水平分页上(将item宽度设置为width:Dimensions.get('window').width)
 //onScroll:在滚动时调用,默认每一帧调用一次,(通过scrollEventThrottle可改变调用次数，但是只支持ios)
-//scrollToEnd:滚动到最后，参数是animatedtrue表示有动画，false直接跳转
-//scrollTo
+//scrollToEnd:(方法)滚动到最后，参数是animatedtrue表示有动画，false直接跳转
+//scrollTo(方法)
 //onMomentumScrollStart:滚动动画开始时调用此函数
 //onMomentumScrollEnd:滚动动画结束时调用此函数
+//showsVerticalScrollIndicator/showsHorizontalScrollIndicator 设置是否显示滚动条,默认true，如果想要隐藏设置false.
+//endFillColor (android)
+//flashScrollIndicators  (方法)显示滚动指示器
+//scrollsToTop,默认true，点击状态栏滑动到顶部（ios）
 class ScrollViewExample extends Component {
     static title = '<ScrollView>';
     static description = '允许子组件滚动的ScrollView';
@@ -65,6 +69,7 @@ class ScrollViewExample extends Component {
                 }}
                 style={styles.verticalScrollView}
                 onScroll={() => console.log('onScroll')}
+                showsVerticalScrollIndicator={false}
                 onContentSizeChange={(event) => console.log('onContentSizeChange')}>
                 <View>
                     <Text onPress={() => this._scrollView.scrollToEnd({animated: true})}>点击滚动到最后</Text>
