@@ -7,7 +7,8 @@ import {ComponentExample} from "./module.android";
 type Props = {
     onNavigate: Function,
     list: {
-        ComponentExamples: Array<ComponentExample>,
+        ComponentExamplesList: Array<ComponentExample>,
+        APIExamples: Array<ComponentExample>,
     },
     persister: PassProps<*>,
 };
@@ -58,9 +59,14 @@ export default class ExampleList extends React.Component {
     render() {
         const sections = [
             {
-                data: this.props.list,
+                data: this.props.list.ComponentExamplesList,
                 title: '组件',
                 key: 'c',
+            },
+            {
+                data: this.props.list.APIExamples,
+                title: 'API',
+                key: 'a',
             },
         ];
         console.log(this.props.list)

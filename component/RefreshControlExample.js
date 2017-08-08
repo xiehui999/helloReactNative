@@ -1,3 +1,12 @@
+/**
+ * 官方文档对应地址:https://facebook.github.io/react-native/docs/refreshcontrol.html
+ *
+ * Code4Android
+ * 我的简书:http://www.jianshu.com/u/d5b531888b2b
+ * 新浪微博:http://weibo.com/745687294
+ * CSDN:http://blog.csdn.net/xiehuimx?viewmode=contents
+ */
+'use strict'
 import React, {Component} from 'react';
 import {
     ScrollView,

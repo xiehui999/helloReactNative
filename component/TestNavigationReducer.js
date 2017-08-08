@@ -1,11 +1,11 @@
-import ComponentExamplesList from './module';
+import TestExamplesList from './module';
 
 export type TestNavigationState = {
     openExample: ?string,
 };
 
-export default  function TestNavigationReducer(state: ?TestNavigationState,
-                               action: any): TestNavigationState {
+export default function TestNavigationReducer(state: ?TestNavigationState,
+                                              action: any): TestNavigationState {
 
     if (
         // Default value is to see example list
@@ -23,13 +23,12 @@ export default  function TestNavigationReducer(state: ?TestNavigationState,
         };
     }
     if (action.type === 'RNTesterExampleAction') {
-        for (var i = 0; i < ComponentExamplesList.length; i++) {
-            if (ComponentExamplesList[i].key == action.openExample) {
-                return state = {
-                    openExample: action.openExample,
-                };
-            }
-        }
+        const ExampleModule = TestExamplesList.Modules[action.openExample];
+        return state = {
+            openExample: action.openExample,
+        };
+
+
     }
     return state;
 }

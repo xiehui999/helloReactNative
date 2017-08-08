@@ -97,4 +97,16 @@ const ComponentExamplesList: Array<ComponentExample> = [
         module: require('./SwipeableListViewExample'),
     },
 ]
-module.exports = ComponentExamplesList
+const Modules = {};
+
+const APIExamples: Array<ComponentExample> = [
+    ]
+APIExamples.concat(ComponentExamplesList).forEach(Example => {
+    Modules[Example.key] = Example.module;
+});
+const TestExamplesList={
+    ComponentExamplesList,
+    APIExamples,
+    Modules
+}
+module.exports = TestExamplesList;

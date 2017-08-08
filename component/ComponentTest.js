@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 //nativeImageSource用import？
 const nativeImageSource =require('nativeImageSource')
-import ComponentExamplesList from './module'
+import TestExamplesList from './module'
 import ExampleList from './ExampleList'
 import TestActions from './TestActions'
 
@@ -33,7 +33,7 @@ UIManager.setLayoutAnimationEnabledExperimental(true);
 export default class ComponentTest extends Component {
     constructor(props) {
         super(props)
-        console.log(ComponentExamplesList)
+        console.log(TestExamplesList)
     }
 
     state: TestNavigationState;
@@ -60,14 +60,7 @@ export default class ComponentTest extends Component {
             openExample,
         } = this.state;
         if (openExample) {
-            var ExampleModule;
-            for (var i = 0; i < ComponentExamplesList.length; i++) {
-                if (ComponentExamplesList[i].key == openExample) {
-                    ExampleModule = ComponentExamplesList[i].module
-                    break
-                }
-            }
-            console.log(ComponentExamplesList)
+            const ExampleModule=TestExamplesList.Modules[openExample]
             console.log(ExampleModule)
             if (ExampleModule) {
                 return (
@@ -104,7 +97,7 @@ export default class ComponentTest extends Component {
                 />
                 <ExampleList
                     onNavigate={this._handleAction}
-                    list={ComponentExamplesList}
+                    list={TestExamplesList}
                 />
             </View>
         );
@@ -113,6 +106,7 @@ export default class ComponentTest extends Component {
     _handleAction = (action: Object): boolean => {
         console.log('_handleAction')
         const newState = TestNavigationReducer(this.state, action);
+        console.log(newState)
         this.setState(
             newState
         );
