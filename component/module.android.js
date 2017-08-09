@@ -101,6 +101,11 @@ const ComponentExamplesList: Array<ComponentExample> = [
         key: 'SwipeableListViewExample',
         module: require('./SwipeableListViewExample'),
     },
+    {
+        key: 'ViewPagerAndroidExample',
+        module: require('./ViewPagerAndroidExample'),
+        platform:'android'
+    },
 ]
 const Modules = {};
 
