@@ -11,9 +11,7 @@ import React, {Component} from 'react'
 import {
     Image,
     StyleSheet,
-    Button,
     Text,
-    TouchableWithoutFeedback,
     TouchableOpacity,
     View,
     ViewPagerAndroid,
@@ -31,6 +29,9 @@ const IMAGE_URIS = [
 ];
 
 class CustomCount extends Component {
+    static defaultProps = {
+        indicator: '',
+    }
     state = {
         count: 1,
     }
@@ -45,19 +46,41 @@ class CustomCount extends Component {
                 >
                     <Text>我是可点击的 {this.state.count}</Text>
                 </TouchableOpacity>
+                <Text style={{marginTop: 20, textAlign: 'center'}}>{this.props.indicator}</Text>
             </View>)
     }
 }
+
 //pageMargin:设置每两页间距
 //initialPage：初始化显示的页数(从0开始)。默认显示第一页(0)
+//onPageScroll:当在页间切换时（不论是由于动画还是由于用户在页间滑动/拖拽）执行,event.nativeEvent中当前页数position（0开始）offset：偏移量
+//onPageSelected:滚动到新页面成功回调
+//onPageScrollStateChanged:页面滑动状态变化时调用此回调函数，idle：空闲，dragging ：正在拖动 settling:处理中
+//scrollEnabled 是否能滚动
 class ViewPagerAndroidExample extends Component {
     static title = '<ViewPagerAndroid>';
     static description = '一个允许字视图左右翻转滑动的组件.';
     state = {
         page: 0,
         animationsAreEnabled: true,
-        scrollEnabled:true,
+        scrollEnabled: true,
+        progress: {
+            position: 0,
+            offset: 0,
+        }
     }
+    _onPageScroll = (e) => {
+        console.log('_onPageScroll')
+        this.setState({progress: e.nativeEvent})
+    }
+    _onPageSelected = (e) => {
+        console.log('_onPageSelected')
+        this.setState({page: e.nativeEvent.position});
+    }
+    _onPageScrollStateChanged = (state: ViewPagerScrollState) => {
+        console.log('_onPageScrollStateChanged')
+        this.setState({scrollState: state});
+    };
 
     render() {
         var pages = [];
@@ -74,29 +97,77 @@ class ViewPagerAndroidExample extends Component {
                         resizeMode={Image.resizeMode.contain}
                         source={IMAGE_URIS[i % BGCOLOR.length]}
                     />
-                    <CustomCount/>
+                    <CustomCount
+                        indicator={this.state.page + 1 + '/' + PAGES}
+                    />
                 </View>
             )
         }
-        var {page, animationsAreEnabled} = this.state;
         return (
             <View style={styles.container}>
                 <ViewPagerAndroid
                     style={styles.viewPager}
                     scrollEnabled={this.state.scrollEnabled}
                     initialPage={0}
-                    pageMargin={10}
-                >
+                    ref={(viewPage) => {
+                        this.viewPage = viewPage;
+                    }}
+                    onPageScroll={this._onPageScroll}
+                    onPageSelected={this._onPageSelected}
+                    onPageScrollStateChanged={this._onPageScrollStateChanged}
+                    pageMargin={10}>
                     {pages}
                 </ViewPagerAndroid>
                 <View>
-                    <Button
-                        title={this.state.scrollEnabled ? 'Scroll Enabled' : 'Scroll Disabled'}
-                        onPress={()=>this.setState({scrollEnabled:!this.state.scrollEnabled})}
-                    />
+                    <Text>当前状态：{this.state.scrollState+'   '}
+                          offset: {this.state.progress.offset.toFixed(6) + ' position:' + this.state.progress.position}</Text>
+                    <TouchableOpacity
+                        activeOpacity={0.5}
+                        onPress={() => this.setState({scrollEnabled: !this.state.scrollEnabled})}
+                        style={styles.button}>
+                        <Text
+                            style={styles.buttonText}> {this.state.scrollEnabled ? '当前可滚动翻页，点击设置禁用' : '当前不可滚动,设置启用'}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={0.5}
+                        onPress={() => this.setState({animationsAreEnabled: !this.state.animationsAreEnabled})}
+                        style={styles.button}>
+                        <Text
+                            style={styles.buttonText}>{this.state.animationsAreEnabled ? '当前页面跳转有动画,点击设置无动画' : '当前页面跳转无动画,点击设置有动画'}</Text>
+                    </TouchableOpacity>
+                    <View style={{
+                        flexDirection: 'row',
+                        marginHorizontal: 20,
+                        marginVertical: 10,
+                        justifyContent: 'space-between'
+                    }}>
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => this._onPress(-1)}
+                            style={[styles.button, {width: '40%', marginHorizontal: 0, alignItems: 'center'}]}>
+                            <Text style={styles.buttonText}>上一页</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => this._onPress(1)}
+                            style={[styles.button, {width: '40%', marginHorizontal: 0, alignItems: 'center'}]}>
+                            <Text style={styles.buttonText}>下一页</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         )
+    }
+
+    _onPress = (offset) => {
+
+        var goPage = (this.state.page + offset + PAGES) % PAGES
+        if (this.state.animationsAreEnabled) {
+            this.viewPage.setPage(goPage)
+        } else {
+            this.viewPage.setPageWithoutAnimation(goPage)
+        }
+        this.setState({page: goPage})
     }
 }
 
@@ -109,17 +180,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     button: {
-        flex: 1,
-        width: 0,
-        margin: 5,
-        borderColor: 'gray',
-        borderWidth: 1,
-        backgroundColor: 'gray',
+        backgroundColor: '#2196f3',
+        borderRadius: 5,
+        marginHorizontal: 20,
+        marginTop: 10,
+        padding: 10,
     },
-    buttonDisabled: {
-        backgroundColor: 'black',
-        opacity: 0.5,
-    },
+
     buttonText: {
         color: 'white',
     },
