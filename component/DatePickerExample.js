@@ -10,6 +10,7 @@ import {
     Platform
 } from 'react-native'
 
+//注意月份传入值是实际月份减1.例如传4，则是五月份.
 class DatePickerAndroidExample extends Component {
     constructor(props) {
         super(props)
@@ -40,6 +41,16 @@ class DatePickerAndroidExample extends Component {
                 onPress={() => this.showPicker('calendar', {date: this.state.calendarDate, mode: 'calendar'})}>
                 <Text>日历选择日期mode(calendar)</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => this.showPicker('calendar', {
+                    date: this.state.calendarDate,
+                    mode: 'calendar',
+                    minDate: new Date(2017, 6, 5),
+                    maxDate: new Date(2017, 7, 26)
+                })}>
+                <Text>日历minDate/maxDate设置最小和最大可选日期</Text>
+            </TouchableOpacity>
         </View>)
     }
 
@@ -61,18 +72,82 @@ class DatePickerAndroidExample extends Component {
     };
 }
 
+//date:当前被选中的日期
+//maximumDate:可选最大日期
+//minimumDate:可选最小日期
+//minuteInterval :可选的最小分钟间隔
+//mode 'date', 'time', 'datetime'
+//timeZoneOffsetInMinutes 指定时区
+class DatePickerIOSExample extends Component {
+    static defaultProps = {
+        date: new Date(),
+        timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60
+    }
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            date: this.props.date,
+            timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
+        }
+    }
+
+    render() {
+        return <View>
+            <Text>{this.state.date.toLocaleDateString() + '  ' + this.state.date.toLocaleTimeString()}</Text>
+            <Text style={styles.text}>日期和时间选择</Text>
+            <DatePickerIOS
+                date={this.state.date}
+                mode="datetime"
+                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+                onDateChange={this._onDateChange}
+            />
+            <Text style={styles.text}>日期选择</Text>
+            <DatePickerIOS
+                date={this.state.date}
+                mode="date"
+                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+                onDateChange={this._onDateChange}
+            />
+            <Text style={styles.text}>时间选择</Text>
+            <DatePickerIOS
+                date={this.state.date}
+                mode="time"
+                timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+                onDateChange={this._onDateChange}
+                minuteInterval={10}
+            />
+        </View>
+    }
+
+    _onDateChange = (date) => {
+        this.setState({date: date});
+    }
+}
+
 export const title = Platform.OS === 'android' ? 'DatePickerAndroid' : '<DatePickerIOS>';
 export const description = Platform.OS === 'android' ? '使用DatePickerAndroid 进行日期选择' : 'DatePickerIOS组件进行日期选择.';
-export const examples = [{
-    title: 'DatePickerAndroid',
-    render() {
-        return <DatePickerAndroidExample/>
-    }
-}]
+export const examples = [
+    {
+        title: 'DatePickerAndroid',
+        render() {
+            return <DatePickerAndroidExample/>
+        },
+        platform:"android",
+    },
+    {
+        title: '<DatePickerIOS>',
+        render() {
+            return <DatePickerIOSExample/>
+        },
+        platform:"ios",
+    }]
 
 const styles = StyleSheet.create({
     text: {
-        color: 'black',
+        marginTop: 20,
+        fontWeight: '500',
+        fontSize: 14
     },
     button: {
         height: 50,
