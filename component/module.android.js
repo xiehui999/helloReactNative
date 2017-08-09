@@ -43,6 +43,11 @@ const ComponentExamplesList: Array<ComponentExample> = [
         platform: 'ios'
     },
     {
+        key: 'DatePickerIOS',
+        module: require('./DatePickerExample'),
+        platform:'ios'
+    },
+    {
         key: 'SwitchExample',
         module: require('./SwitchExample'),
     },
@@ -101,7 +106,7 @@ const Modules = {};
 
 const APIExamples: Array<ComponentExample> = [
     {
-        key: 'DatePickerExample',
+        key: 'DatePickerAndroid',
         module: require('./DatePickerExample'),
         platform:'android'
     },
