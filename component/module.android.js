@@ -106,6 +106,10 @@ const ComponentExamplesList: Array<ComponentExample> = [
         module: require('./ViewPagerAndroidExample'),
         platform:'android'
     },
+    {
+        key: 'WebViewExample',
+        module: require('./WebViewExample'),
+    },
 ]
 const Modules = {};
 

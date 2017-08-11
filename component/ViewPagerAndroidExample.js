@@ -70,7 +70,7 @@ class ViewPagerAndroidExample extends Component {
         }
     }
     _onPageScroll = (e) => {
-        console.log('_onPageScroll')
+        console.log(e.nativeEvent)
         this.setState({progress: e.nativeEvent})
     }
     _onPageSelected = (e) => {
@@ -172,13 +172,6 @@ class ViewPagerAndroidExample extends Component {
 }
 
 const styles = StyleSheet.create({
-    buttons: {
-        flexDirection: 'row',
-        height: 30,
-        backgroundColor: 'black',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
     button: {
         backgroundColor: '#2196f3',
         borderRadius: 5,
@@ -186,12 +179,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         padding: 10,
     },
-
     buttonText: {
         color: 'white',
-    },
-    scrollStateText: {
-        color: '#99d1b7',
     },
     container: {
         flex: 1,
@@ -201,17 +190,6 @@ const styles = StyleSheet.create({
         width: 300,
         height: 200,
         padding: 20,
-    },
-    progressBarContainer: {
-        height: 10,
-        margin: 10,
-        borderColor: '#eeeeee',
-        borderWidth: 2,
-    },
-    progressBar: {
-        alignSelf: 'flex-start',
-        flex: 1,
-        backgroundColor: '#eeeeee',
     },
     viewPager: {
         flex: 1,

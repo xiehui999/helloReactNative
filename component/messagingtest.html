@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Messaging Test</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=320, user-scalable=no">
+  </head>
+  <h1>测试ReactNative和html之间通信</h1>
+  <body>
+    <p>从React Native接收的消息: 0</p>
+    <p>(没有消息)</p>
+    <button type="button">
+      给React Native发送消息
+    </button>
+  </body>
+  <script>
+    var messagesReceivedFromReactNative = 0;
+    document.addEventListener('message', function(e) {
+      messagesReceivedFromReactNative += 1;
+      document.getElementsByTagName('p')[0].innerHTML =
+        '从React Native接收的消息: ' + messagesReceivedFromReactNative;
+      document.getElementsByTagName('p')[1].innerHTML = e.data;
+    });
+
+    document.getElementsByTagName('button')[0].addEventListener('click', function() {
+      window.postMessage('这是html发送到RN的消息');
+    });
+  </script>
+</html>
