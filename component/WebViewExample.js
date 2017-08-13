@@ -8,7 +8,7 @@ import {
     Alert,
     WebView,
 } from 'react-native'
-
+import  TestPage from './TestPage'
 const DEFAULT_URL = 'http://www.jianshu.com/u/d5b531888b2b';
 const BGWASH = 'rgba(255,255,255,0.8)';
 const DISABLED_WASH = 'rgba(255,255,255,0.25)';
@@ -26,6 +26,8 @@ const DISABLED_WASH = 'rgba(255,255,255,0.25)';
 //onMessage:html发送消息给RN
 //injectJavaScript注入脚本
 class WebViewExample extends Component {
+    static title = '<WebView>';
+    static description = '显示网页的组件';
     state = {
         url: DEFAULT_URL,
         isHtml: false,
@@ -45,89 +47,93 @@ class WebViewExample extends Component {
         console.log(this.state.isPostMessage)
         var html = this.state.isPostMessage ? require('./messagingtest.html') : require('./helloworld.html');
         return (
-            <View style={styles.container}>
-                <View style={styles.addressBarRow}>
-                    <TouchableOpacity
-                        onPress={this.goBack}
-                        style={this.state.backButtonEnabled ? styles.navButton : styles.disabledButton}>
-                        <Text>{'<'}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={this.goForward}
-                        style={this.state.forwardButtonEnabled ? styles.navButton : styles.disabledButton}>
-                        <Text>
-                            {'>'}
-                        </Text>
-                    </TouchableOpacity>
-                    <TextInput
-                        ref={(textinput) => this._textInput = textinput}
-                        autoCaitalize="none"
-                        defaultValue={this.state.url}
-                        onSubmitEditing={this._onSubmitEditing}
-                        onChange={this._textChange}
-                        clearButtonMode="while-editing"
-                        style={styles.addressBarTextInput}
-                    />
-                    <TouchableOpacity onPress={this._pressGoButton}>
-                        <View style={styles.goButton}>
+            <TestPage
+                title=""
+                style={styles.container}
+                noSpacer={true}
+                noScroll={true}>
+                    <View style={styles.addressBarRow}>
+                        <TouchableOpacity
+                            onPress={this.goBack}
+                            style={this.state.backButtonEnabled ? styles.navButton : styles.disabledButton}>
+                            <Text>{'<'}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={this.goForward}
+                            style={this.state.forwardButtonEnabled ? styles.navButton : styles.disabledButton}>
                             <Text>
-                                Go!
+                                {'>'}
                             </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <WebView
-                    ref={(webview) => this.webview = webview}
-                    automaticallyAdjustContentInsets={false}
-                    style={styles.webView}
-                    source={this.state.isHtml ? html : {uri: this.state.url}}
-                    javaScriptEnabled={true}
-                    domStorageEnabled={true}
-                    decelerationRate="normal"
-                    onNavigationStateChange={this._onNavigationStateChange}
-                    onShouldStartLoadWithRequest={this._onShouldStartLoadWithRequest}
-                    startInLoadingState={true}
-                    onMessage={this._onMessage}
-                    scalesPageToFit={this.state.scalesPageToFit}
-                />
-                <View style={styles.statusBar}>
-                    <Text style={styles.statusBarText}>{this.state.status}</Text>
-                </View>
-                <View style={{ flexDirection: 'row', flex: 1,flexWrap:'wrap'}}>
-                    <TouchableOpacity
-                        activeOpacity={0.5}
-                        onPress={() => this.setState({scalesPageToFit: !this.state.scalesPageToFit})}
-                        style={[{backgroundColor: '#38acff',marginTop: 10, padding: 5}]}>
-                        <Text
-                            style={styles.statusBarText}>scalesPageToFit:{this.state.scalesPageToFit ? 'true' : 'false'}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        activeOpacity={0.5}
-                        onPress={() => this.setState({
-                            isHtml: !this.state.isHtml,
-                            isPostMessage: false,
-                            url: this.state.isHtml ? DEFAULT_URL : this.state.url
-                        })}
-                        style={[{backgroundColor: '#38acff', marginTop: 10,padding: 5, marginLeft: 5}]}>
-                        <Text
-                            style={styles.statusBarText}>可加载{this.state.isHtml ? 'html文件' : '网页uri'}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        activeOpacity={0.5}
-                        onPress={this._postMessage}
-                        style={[{backgroundColor: '#38acff',marginTop: 10, padding: 5, marginLeft: 5}]}>
-                        <Text
-                            style={styles.statusBarText}>测试数据传递</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        activeOpacity={0.5}
-                        onPress={this.injectJS}
-                        style={[{backgroundColor: '#38acff',marginTop: 10, padding: 5, marginLeft: 5}]}>
-                        <Text
-                            style={styles.statusBarText}>脚本注入</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+                        </TouchableOpacity>
+                        <TextInput
+                            ref={(textinput) => this._textInput = textinput}
+                            autoCaitalize="none"
+                            defaultValue={this.state.url}
+                            onSubmitEditing={this._onSubmitEditing}
+                            onChange={this._textChange}
+                            clearButtonMode="while-editing"
+                            style={styles.addressBarTextInput}
+                        />
+                        <TouchableOpacity onPress={this._pressGoButton}>
+                            <View style={styles.goButton}>
+                                <Text>
+                                    Go!
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <WebView
+                        ref={(webview) => this.webview = webview}
+                        automaticallyAdjustContentInsets={false}
+                        style={styles.webView}
+                        source={this.state.isHtml ? html : {uri: this.state.url}}
+                        javaScriptEnabled={true}
+                        domStorageEnabled={true}
+                        decelerationRate="normal"
+                        onNavigationStateChange={this._onNavigationStateChange}
+                        onShouldStartLoadWithRequest={this._onShouldStartLoadWithRequest}
+                        startInLoadingState={true}
+                        onMessage={this._onMessage}
+                        scalesPageToFit={this.state.scalesPageToFit}
+                    />
+                    <View style={styles.statusBar}>
+                        <Text style={styles.statusBarText}>{this.state.status}</Text>
+                    </View>
+                    <View style={{flexDirection: 'row', flexWrap: 'wrap',marginBottom:10}}>
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => this.setState({scalesPageToFit: !this.state.scalesPageToFit})}
+                            style={[{backgroundColor: '#38acff', marginTop: 10, padding: 5}]}>
+                            <Text
+                                style={styles.statusBarText}>scalesPageToFit:{this.state.scalesPageToFit ? 'true' : 'false'}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => this.setState({
+                                isHtml: !this.state.isHtml,
+                                isPostMessage: false,
+                                url: this.state.isHtml ? DEFAULT_URL : this.state.url
+                            })}
+                            style={[{backgroundColor: '#38acff', marginTop: 10, padding: 5, marginLeft: 5}]}>
+                            <Text
+                                style={styles.statusBarText}>可加载{this.state.isHtml ? 'html文件' : '网页uri'}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={this._postMessage}
+                            style={[{backgroundColor: '#38acff', marginTop: 10, padding: 5, marginLeft: 5}]}>
+                            <Text
+                                style={styles.statusBarText}>测试数据传递</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={this.injectJS}
+                            style={[{backgroundColor: '#38acff', marginTop: 10, padding: 5, marginLeft: 5}]}>
+                            <Text
+                                style={styles.statusBarText}>脚本注入</Text>
+                        </TouchableOpacity>
+                    </View>
+            </TestPage>
         )
     }
 
@@ -205,21 +211,11 @@ class WebViewExample extends Component {
     };
 }
 
-export const title = '<WebView>';
-export const description = '显示网页的组件';
-export const examples = [
-    {
-        title: '简单实现',
-        render() {
-            return <WebViewExample/>
-        }
-    }
-]
-
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:"#ff0000"
     },
     addressBarRow: {
         flexDirection: 'row',
@@ -281,6 +277,7 @@ const styles = StyleSheet.create({
     },
     webView: {
         backgroundColor: BGWASH,
-        height: 350,
+        height: '100%',
     },
 })
+module.exports=WebViewExample
