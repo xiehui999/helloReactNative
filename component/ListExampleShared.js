@@ -37,39 +37,30 @@ class ItemComponent extends PureComponent {
         onShowUnderlay?: () => void,
         onHideUnderlay?: () => void,
     }
-
+    _onPress = () => {
+        this.props.onPress(this.props.item.key);
+    };
     render() {
         const {fixedHeight, horizontal, item} = this.props;
         const itemHash = Math.abs(hashCode(item.title));
         const imgSource = IMAGE_URLS[itemHash % IMAGE_URLS.length];
         return (
             <TouchableHighlight
-                activeOpacity={0.5}
+                onPress={this._onPress}
                 onShowUnderlay={this.props.onShowUnderlay}
                 onHideUnderlay={this.props.onHideUnderlay}
-                style={horizontal ? styles.horizontalItem : styles.item}
-            >
+                style={horizontal ? styles.horizontalItem : styles.item}>
                 <View
-                    style={[styles.row, horizontal && {width: HORIZ_WIDTH}, fixedHeight && {height: ITEM_HEIGHT}]}></View>
-                {!item.noImage && <Imgage style={styles.thumb} source={imgSource}/>}
-                <Text style={styles.text}
-                      numberOfLines={(horizontal || fixedHeight) ? 3 : undefined}>
-                    {item.title}-{item.text}
-                </Text>
+                    style={[styles.row, horizontal && {width: HORIZ_WIDTH}, fixedHeight && {height: ITEM_HEIGHT}]}>
+                    {!item.noImage && <Image style={styles.thumb} source={imgSource}/>}
+                    <Text style={styles.text}
+                          numberOfLines={(horizontal || fixedHeight) ? 3 : undefined}>
+                        {item.title}-{item.text}
+                    </Text>
+                </View>
             </TouchableHighlight>
         )
     }
-}
-
-const rednerStackedItem = (item: Item) => {
-    const itemHash = Math.abs(hashCode(item.title));
-    const imgSource = IMAGE_URLS[itemHash % IMAGE_URLS.length];
-    return (
-        <View style={styles.stacked}>
-            <Text style={styles.stackedText}>{item.title} - {item.text}</Text>
-            <Image style={styles.thumb} source={imgSource}/>
-        </View>
-    )
 }
 
 class SeparatorComponent extends PureComponent {
@@ -77,23 +68,25 @@ class SeparatorComponent extends PureComponent {
         return <View style={styles.separator}/>;
     }
 }
-const renderStackedItem = ({item}: {item: Item}) => {
+
+const renderStackedItem = ({item}: { item: Item }) => {
     const itemHash = Math.abs(hashCode(item.title));
     const imgSource = IMAGE_URLS[itemHash % IMAGE_URLS.length];
     return (
         <View style={styles.stacked}>
             <Text style={styles.stackedText}>{item.title} - {item.text}</Text>
-            <Image style={styles.thumb} source={imgSource} />
+            <Image style={styles.thumb} source={imgSource}/>
         </View>
     );
 };
+
 class FooterComponent extends PureComponent {
     render() {
         return (
             <View style={styles.headerFooterContainer}>
                 <SeparatorComponent/>
                 <View style={styles.headerFooter}>
-                    <Tex>我是Footer</Tex>
+                    <Text>我是Footer</Text>
                 </View>
             </View>
         )
@@ -177,7 +170,7 @@ const pressItem = (context, key) => {
         newData[index] = {
             ...state.data[index],
             pressed,
-            title: 'Item' + key + (pressed ? ' (pressed)' : '')
+            title: 'Item ' + key + (pressed ? ' (pressed)' : '')
         }
         return {data: newData};
     })
@@ -218,6 +211,17 @@ const styles = StyleSheet.create({
         },
         horizontalItem: {
             alignSelf: 'flex-start',
+        },
+        searchTextInput: {
+            backgroundColor: 'white',
+            borderColor: '#cccccc',
+            borderRadius: 3,
+            borderWidth: 1,
+            paddingLeft: 8,
+            paddingVertical: 0,
+            height: 26,
+            fontSize: 14,
+            flexGrow: 1,
         },
         item: {
             flex: 1,
