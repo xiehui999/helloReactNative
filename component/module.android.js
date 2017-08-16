@@ -9,6 +9,10 @@ const ComponentExamplesList: Array<ComponentExample> = [
         module: require('./ViewExample'),
     },
     {
+        key:'SectionListExample',
+        module:require('./SectionListExample')
+    },
+    {
         key: 'TextExample',
         module: require('./TextExample'),
     },
