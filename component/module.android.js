@@ -13,6 +13,10 @@ const ComponentExamplesList: Array<ComponentExample> = [
         module:require('./SectionListExample')
     },
     {
+        key:'FlatListExample',
+        module:require('./FlatListExample')
+    },
+    {
         key: 'TextExample',
         module: require('./TextExample'),
     },
