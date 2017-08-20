@@ -46,7 +46,6 @@ class CustomCount extends Component {
                 >
                     <Text>我是可点击的 {this.state.count}</Text>
                 </TouchableOpacity>
-                <Text style={{marginTop: 20, textAlign: 'center'}}>{this.props.indicator}</Text>
             </View>)
     }
 }
@@ -83,7 +82,10 @@ class ViewPagerAndroidExample extends Component {
     };
 
     render() {
-        var pages = [];
+        var pages = []
+        var style={
+            backgroundColor:BGCOLOR[this.state.page % BGCOLOR.length]
+        }
         for (var i = 0; i < PAGES; i++) {
             var pageStyle = {
                 backgroundColor: BGCOLOR[i % BGCOLOR.length],
@@ -97,9 +99,7 @@ class ViewPagerAndroidExample extends Component {
                         resizeMode={Image.resizeMode.contain}
                         source={IMAGE_URIS[i % BGCOLOR.length]}
                     />
-                    <CustomCount
-                        indicator={this.state.page + 1 + '/' + PAGES}
-                    />
+                    <CustomCount/>
                 </View>
             )
         }
@@ -118,9 +118,11 @@ class ViewPagerAndroidExample extends Component {
                     pageMargin={10}>
                     {pages}
                 </ViewPagerAndroid>
+                <Text style={[style,{textAlign: 'center'}]}>{this.state.page+1}/{pages.length}</Text>
+
                 <View>
-                    <Text>当前状态：{this.state.scrollState+'   '}
-                          offset: {this.state.progress.offset.toFixed(6) + ' position:' + this.state.progress.position}</Text>
+                    <Text>当前状态：{this.state.scrollState + '   '}
+                        offset: {this.state.progress.offset.toFixed(6) + ' position:' + this.state.progress.position}</Text>
                     <TouchableOpacity
                         activeOpacity={0.5}
                         onPress={() => this.setState({scrollEnabled: !this.state.scrollEnabled})}

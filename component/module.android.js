@@ -17,6 +17,10 @@ const ComponentExamplesList: Array<ComponentExample> = [
         module:require('./FlatListExample')
     },
     {
+        key:'MultiColumnExample',
+        module:require('./MultiColumnExample')
+    },
+    {
         key: 'TextExample',
         module: require('./TextExample'),
     },
