@@ -47,10 +47,35 @@ class MultiColumnExample extends PureComponent {
                         clearButtonMode="never"
                         value={this.state.numColumns ? String(this.state.numColumns) : ''}/>
                 </View>
+                <View style={styles.row}>
+                    {renderSmallSwitchOption(this, 'fixedHeight')}
+                </View>
+                <SeparatorComponent/>
+                <FlatList
+                    ListFooterComponent={FooterComponent}
+                    ListHeaderComponent={HeaderComponent}
+                    data={filteredData}
+                    renderItem={this._renderItemComponent}
+                    key={this.state.numColumns + (this.state.fixedHeight ? 'f' : 'v')}
+                    numColumns={this.state.numColumns || 1}
+                    onRefresh={() => alert('执行了onRefresh')}
+                    refreshing={false}
+                    legacyImplementation={false}
+                />
             </TestPage>
         );
     }
 
+    _renderItemComponent = ({item}) => {
+        return <View style={styles.card}>
+            <ItemComponent
+                fixedHeight={this.state.fixedHeight}
+                item={item}
+                onPress={(key) => {
+                    pressItem(this, key);
+                }}/>
+        </View>
+    }
     _onChangeText = (text) => {
         this.setState({
             filterText: text,
@@ -70,6 +95,14 @@ class MultiColumnExample extends PureComponent {
 const styles = StyleSheet.create({
     searchRow: {
         padding: 10,
-    }
+    },
+    card: {
+        margin: 5,
+        borderRadius: 10,
+        flex: 1,
+        overflow: 'hidden',
+        borderColor: 'lightgray',
+        borderWidth: 1,
+    },
 })
 module.exports = MultiColumnExample;
