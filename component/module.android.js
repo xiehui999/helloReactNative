@@ -131,6 +131,10 @@ const APIExamples: Array<ComponentExample> = [
         module: require('./AlertExample')
     },
     {
+        key: 'AnimatedExample',
+        module: require('./AnimatedExample')
+    },
+    {
         key: 'DatePickerAndroid',
         module: require('./DatePickerExample'),
         platform: 'android'
