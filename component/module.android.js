@@ -9,16 +9,16 @@ const ComponentExamplesList: Array<ComponentExample> = [
         module: require('./ViewExample'),
     },
     {
-        key:'SectionListExample',
-        module:require('./SectionListExample')
+        key: 'SectionListExample',
+        module: require('./SectionListExample')
     },
     {
-        key:'FlatListExample',
-        module:require('./FlatListExample')
+        key: 'FlatListExample',
+        module: require('./FlatListExample')
     },
     {
-        key:'MultiColumnExample',
-        module:require('./MultiColumnExample')
+        key: 'MultiColumnExample',
+        module: require('./MultiColumnExample')
     },
     {
         key: 'TextExample',
@@ -57,7 +57,7 @@ const ComponentExamplesList: Array<ComponentExample> = [
     {
         key: 'DatePickerIOS',
         module: require('./DatePickerExample'),
-        platform:'ios'
+        platform: 'ios'
     },
     {
         key: 'SwitchExample',
@@ -116,7 +116,7 @@ const ComponentExamplesList: Array<ComponentExample> = [
     {
         key: 'ViewPagerAndroidExample',
         module: require('./ViewPagerAndroidExample'),
-        platform:'android'
+        platform: 'android'
     },
     {
         key: 'WebViewExample',
@@ -127,9 +127,13 @@ const Modules = {};
 
 const APIExamples: Array<ComponentExample> = [
     {
+        key: 'AlertExample',
+        module: require('./AlertExample')
+    },
+    {
         key: 'DatePickerAndroid',
         module: require('./DatePickerExample'),
-        platform:'android'
+        platform: 'android'
     },
 ]
 APIExamples.concat(ComponentExamplesList).forEach(Example => {
