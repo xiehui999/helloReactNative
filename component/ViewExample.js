@@ -230,6 +230,14 @@ export const examples = [
                 <ZIndexExample/>
             )
         }
+    }, {
+        title: '使用border属性绘制三角形和梯形',
+        render() {
+            return <View>
+                <View style={styles.border}></View>
+                <View style={styles.border2}></View>
+            </View>
+        }
     }
 ]
 const styles = StyleSheet.create({
@@ -243,5 +251,30 @@ const styles = StyleSheet.create({
         width: 100,
         height: 50,
         marginTop: -10,
+    },
+    border:{
+        width:100,
+        height:100,
+        borderStyle: 'solid',
+        borderTopWidth:50,
+        borderBottomWidth:50,
+        borderRightWidth:0,
+        borderLeftWidth:100,
+        borderLeftColor: 'red',
+        borderTopColor:'transparent',
+        borderBottomColor:'transparent'
+    },
+    border2:{
+        width:100,
+        height:100,
+        borderTopWidth:60,
+        borderBottomWidth:40,
+        borderRightWidth:30,
+        borderLeftWidth:30,
+        borderBottomColor:'red',
+        borderLeftColor: 'transparent',
+        borderRightColor:'transparent',
+        borderTopColor:'transparent',
+
     }
 })

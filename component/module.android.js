@@ -141,6 +141,9 @@ const APIExamples: Array<ComponentExample> = [
         key: 'DatePickerAndroid',
         module: require('./DatePickerExample'),
         platform: 'android'
+    }, {
+        key: 'GeolocationExample',
+        module: require('./GeolocationExample'),
     },
 ]
 APIExamples.concat(ComponentExamplesList).forEach(Example => {
