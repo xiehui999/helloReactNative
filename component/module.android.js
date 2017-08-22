@@ -147,6 +147,10 @@ const APIExamples: Array<ComponentExample> = [
     }, {
         key: 'LinkingAndShareExample',
         module: require('./LinkingAndShareExample'),
+    }, {
+        key: 'PermissionsAndToastExample',
+        module: require('./PermissionsAndToastExample'),
+        platform:'android'
     },
 ]
 APIExamples.concat(ComponentExamplesList).forEach(Example => {
