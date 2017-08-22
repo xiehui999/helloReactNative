@@ -144,6 +144,9 @@ const APIExamples: Array<ComponentExample> = [
     }, {
         key: 'GeolocationExample',
         module: require('./GeolocationExample'),
+    }, {
+        key: 'LinkingAndShareExample',
+        module: require('./LinkingAndShareExample'),
     },
 ]
 APIExamples.concat(ComponentExamplesList).forEach(Example => {
