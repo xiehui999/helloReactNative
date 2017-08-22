@@ -8,18 +8,22 @@
  * 新浪微博:http://weibo.com/745687294
  * CSDN:http://blog.csdn.net/xiehuimx?viewmode=contents
  */
+
+
 'use strict'
 import React, {Component} from 'react'
 import {
     DatePickerAndroid,
+    TimePickerAndroid,
     DatePickerIOS,
     StyleSheet,
     Text,
     TouchableOpacity,
-    TextInput,
+    Alert,
     View,
     Platform
 } from 'react-native'
+import TestBlock from "./TestBlock";
 
 //注意月份传入值是实际月份减1.例如传4，则是五月份.
 class DatePickerAndroidExample extends Component {
@@ -38,29 +42,25 @@ class DatePickerAndroidExample extends Component {
         return ( <View>
             <Text style={styles.text}>选择日期：{this.state.textStr}</Text>
             <TouchableOpacity
-                style={styles.button}
                 onPress={() => this.showPicker('simple', {date: this.state.simpleDate})}>
-                <Text>默认日期选择,根据系统选择spinner,calendar</Text>
+                <Text style={styles.button}>默认日期选择,根据系统选择spinner,calendar</Text>
             </TouchableOpacity>
             <TouchableOpacity
-                style={styles.button}
                 onPress={() => this.showPicker('spinner', {date: this.state.spinnerDate, mode: 'spinner'})}>
-                <Text>日期mode(spinner)</Text>
+                <Text style={styles.button}>日期mode(spinner)</Text>
             </TouchableOpacity>
             <TouchableOpacity
-                style={styles.button}
                 onPress={() => this.showPicker('calendar', {date: this.state.calendarDate, mode: 'calendar'})}>
-                <Text>日历选择日期mode(calendar)</Text>
+                <Text style={styles.button}>日历选择日期mode(calendar)</Text>
             </TouchableOpacity>
             <TouchableOpacity
-                style={styles.button}
                 onPress={() => this.showPicker('calendar', {
                     date: this.state.calendarDate,
                     mode: 'calendar',
                     minDate: new Date(2017, 6, 5),
                     maxDate: new Date(2017, 7, 26)
                 })}>
-                <Text>日历minDate/maxDate设置最小和最大可选日期</Text>
+                <Text style={styles.button}>日历minDate/maxDate设置最小和最大可选日期</Text>
             </TouchableOpacity>
         </View>)
     }
@@ -136,22 +136,82 @@ class DatePickerIOSExample extends Component {
     }
 }
 
+class TimePickerAndroidExample extends Component {
+    state = {
+        defaultText: '选择时间',
+        presetText: '选择时间,默认时间4:30AM',
+        presetHour: 4,
+        presetMinute: 30,
+    }
+
+    render() {
+        return (
+            <View>
+                <Text>默认,默认时间格式为手机设置的时间格式（24小时或者12小时）</Text>
+                <TouchableOpacity
+                    onPress={() => this._onPress('default', {})}
+                    activeOpacity={0.5}>
+                    <Text style={styles.button}>{this.state.defaultText}</Text>
+                </TouchableOpacity>
+                <Text>设置默认时间(hour,minute)4:30AM,is24Hour设置了true（24小时制）</Text>
+                <TouchableOpacity
+                    onPress={() => this._onPress('preset', {
+                        hour: this.state.presetHour,
+                        minute: this.state.presetMinute,
+                        is24Hour: true,
+                    })}
+                    activeOpacity={0.5}>
+                    <Text style={styles.button}>{this.state.presetText}</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
+    _onPress = async (key, options) => {
+        console.log('_onPress')
+        console.log(key)
+        console.log(options)
+        try {
+            const {action, minute, hour} = await TimePickerAndroid.open(options);
+            var newState = {}
+            console.log(action)
+            if (action === TimePickerAndroid.timeSetAction) {
+                newState[key + 'Text'] = hour + ':' + (minute < 10 ? '0' + minute : minute);
+                newState[key + 'Hour'] = hour;
+                newState[key + 'Minute'] = minute;
+            } else if (action === TimePickerAndroid.dismissedAction) {
+                newState[key + 'Text'] = '取消了选择';
+            }
+            this.setState(newState);
+        } catch ({code, message}) {
+            Alert.alert('出现了错误' + message);
+        }
+    }
+}
+
 export const title = Platform.OS === 'android' ? 'DatePickerAndroid' : '<DatePickerIOS>';
-export const description = Platform.OS === 'android' ? '使用DatePickerAndroid 进行日期选择' : 'DatePickerIOS组件进行日期选择.';
+export const description = Platform.OS === 'android' ? '使用DatePickerAndroid 进行日期选择,以及TimePickerAndorid选择时间' : 'DatePickerIOS组件进行日期选择.';
 export const examples = [
     {
         title: 'DatePickerAndroid',
         render() {
             return <DatePickerAndroidExample/>
         },
-        platform:"android",
+        platform: "android",
+    },
+    {
+        title: 'TimePickerAndroid',
+        render() {
+            return <TimePickerAndroidExample/>
+        },
+        platform: "android",
     },
     {
         title: '<DatePickerIOS>',
         render() {
             return <DatePickerIOSExample/>
         },
-        platform:"ios",
+        platform: "ios",
     }]
 
 const styles = StyleSheet.create({
@@ -163,12 +223,12 @@ const styles = StyleSheet.create({
     button: {
         height: 50,
         padding: 10,
-        borderColor: '#38adff',
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 10,
-        borderWidth: 1,
         borderRadius: 5,
-        backgroundColor: '#ccc'
+        backgroundColor: '#38adff',
+        color: '#fff',
+        fontSize: 16,
     }
 });
