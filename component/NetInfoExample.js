@@ -147,6 +147,7 @@ export const examples = [{
     }
 }, {
     title: 'isConnectionExpensive检测网络是否收费',
+    platform: 'android',
     render() {
         return <IsConnectionExpensive/>
     }

@@ -154,6 +154,9 @@ const APIExamples: Array<ComponentExample> = [
     }, {
         key: 'NetInfoExample',
         module: require('./NetInfoExample'),
+    }, {
+        key: 'VibrationAndOrientationExample',
+        module: require('./VibrationAndOrientationExample'),
     }
 ]
 APIExamples.concat(ComponentExamplesList).forEach(Example => {
