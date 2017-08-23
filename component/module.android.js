@@ -150,8 +150,11 @@ const APIExamples: Array<ComponentExample> = [
     }, {
         key: 'PermissionsAndToastExample',
         module: require('./PermissionsAndToastExample'),
-        platform:'android'
-    },
+        platform: 'android'
+    }, {
+        key: 'NetInfoExample',
+        module: require('./NetInfoExample'),
+    }
 ]
 APIExamples.concat(ComponentExamplesList).forEach(Example => {
     Modules[Example.key] = Example.module;
