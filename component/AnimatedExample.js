@@ -96,7 +96,7 @@ class LoopExample extends Component {
     }
 
     componentWillUnmount() {
-        this.state.anim.removeAllListeners();
+        this.state.value.removeAllListeners();
     }
 
     render() {
