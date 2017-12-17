@@ -2,7 +2,7 @@
 import React, {PureComponent} from 'react'
 import {TouchableHighlight, Text, StyleSheet, SectionList, View, Platform} from 'react-native'
 import TestActions from './TestActions';
-import {ComponentExample} from "./module.android";
+import {ComponentExample} from "./module";
 
 type Props = {
     onNavigate: Function,

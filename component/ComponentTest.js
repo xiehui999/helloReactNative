@@ -4,7 +4,6 @@ import {
     AppRegistry,
     View,
     StyleSheet,
-    UIManager,
     BackHandler,
 } from 'react-native'
 //nativeImageSource用import？
@@ -28,7 +27,6 @@ const HEADER_NAV_ICON = nativeImageSource({
     width: 48,
     height: 48
 });
-UIManager.setLayoutAnimationEnabledExperimental(true);
 
 export default class ComponentTest extends Component {
     constructor(props) {
