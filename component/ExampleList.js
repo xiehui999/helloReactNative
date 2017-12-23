@@ -3,15 +3,8 @@ import React, {PureComponent} from 'react'
 import {TouchableHighlight, Text, StyleSheet, SectionList, View, Platform} from 'react-native'
 import TestActions from './TestActions';
 import {ComponentExample} from "./module";
-
-type Props = {
-    onNavigate: Function,
-    list: {
-        ComponentExamplesList: Array<ComponentExample>,
-        APIExamples: Array<ComponentExample>,
-    },
-    persister: PassProps<*>,
-};
+import TestExamplesList from './module'
+import {Actions} from 'react-native-router-flux'
 
 class RowComponent extends PureComponent {
     props: {
@@ -21,28 +14,26 @@ class RowComponent extends PureComponent {
         onShowUnderlay?: Function,
         onHideUnderlay?: Function,
     };
-    _onPress = () => {
-        if (this.props.onPress) {
-            this.props.onPress();
-            return;
-        }
-        this.props.onNavigate(TestActions.ExampleAction(this.props.item.key));
-    };
+
 
     render() {
         const {item} = this.props;
         var platform = item.platform ? item.platform : Platform.OS
         return (
-            platform === Platform.OS ? <TouchableHighlight {...this.props} onPress={this._onPress}>
-                <View style={styles.row}>
-                    <Text style={styles.rowTitleText}>
-                        {item.module.title}
-                    </Text>
-                    <Text style={styles.rowDetailText}>
-                        {item.module.description}
-                    </Text>
-                </View>
-            </TouchableHighlight> : null
+            platform === Platform.OS ?
+                <TouchableHighlight {...this.props} onPress={() => {
+                    console.log("item", item.key)
+                    Actions.ComponentTest({ExampleKey: item.key})
+                }}>
+                    <View style={styles.row}>
+                        <Text style={styles.rowTitleText}>
+                            {item.module.title}
+                        </Text>
+                        <Text style={styles.rowDetailText}>
+                            {item.module.description}
+                        </Text>
+                    </View>
+                </TouchableHighlight> : null
         )
             ;
     }
@@ -59,12 +50,12 @@ export default class ExampleList extends React.Component {
     render() {
         const sections = [
             {
-                data: this.props.list.ComponentExamplesList,
+                data: TestExamplesList.ComponentExamplesList,
                 title: '组件',
                 key: 'c',
             },
             {
-                data: this.props.list.APIExamples,
+                data: TestExamplesList.APIExamples,
                 title: 'API',
                 key: 'a',
             },
@@ -104,7 +95,7 @@ export default class ExampleList extends React.Component {
             onHideUnderlay={separators.unhighlight
             }
         />: null
-        )
+    )
     ;
 
     _handleRowPress(exampleKey: string): void {

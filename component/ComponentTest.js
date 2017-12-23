@@ -7,15 +7,12 @@ import {
     BackHandler,
 } from 'react-native'
 //nativeImageSource用import？
-const nativeImageSource =require('nativeImageSource')
+const nativeImageSource = require('nativeImageSource')
 import TestExamplesList from './module'
-import ExampleList from './ExampleList'
 import TestActions from './TestActions'
 
-import type {TestNavigationState} from './TestNavigationReducer'
-import TestNavigationReducer from './TestNavigationReducer'
 import TestExampleContainer from './TestExampleContainer'
-import TitleBarComponent from './TitleBarComponent'
+
 const HEADER_LOGO_ICON = nativeImageSource({
     android: 'launcher_icon',
     width: 132,
@@ -31,17 +28,14 @@ const HEADER_NAV_ICON = nativeImageSource({
 export default class ComponentTest extends Component {
     constructor(props) {
         super(props)
-        console.log(TestExamplesList)
+        this.state = {
+            ExampleKey: props.ExampleKey
+        }
     }
 
-    state: TestNavigationState;
 
     componentWillMount() {
         BackHandler.addEventListener('hardwareBackPress', this._handleBackButtonPress);
-    }
-
-    componentDidMount() {
-        this.setState(TestNavigationReducer(null, {type: 'InitialAction'}));
     }
 
     render() {
@@ -54,73 +48,21 @@ export default class ComponentTest extends Component {
     }
 
     _renderApp() {
-        const {
-            openExample,
-        } = this.state;
-        if (openExample) {
-            const ExampleModule=TestExamplesList.Modules[openExample]
-            console.log(ExampleModule)
-            if (ExampleModule) {
-                return (
-                    <View style={styles.container}>
-                        {/*                        <ToolbarAndroid
-                            logo={HEADER_LOGO_ICON}
-                            navIcon={HEADER_NAV_ICON}
-                            style={styles.toolbar}
-                            al
-                            onIconClicked={() => console.log('onIconClicked')}
-                            title={ExampleModule.title}
-                        />*/}
-                        <TitleBarComponent
-                            isShow={true}
-                            title={ExampleModule.title}
-                            onPress={this._handleBackButtonPress}
-
-                        />
-                        <TestExampleContainer
-                            module={ExampleModule}
-                            ref={(example) => {
-                                this._exampleRef = example;
-                            }}
-                        />
-                    </View>
-                );
-            }
+        const {ExampleKey} = this.state;
+        const ExampleModule = TestExamplesList.Modules[ExampleKey]
+        if (ExampleModule) {
+            return (
+                <View style={styles.container}>
+                    <TestExampleContainer
+                        module={ExampleModule}
+                        ref={(example) => {
+                            this._exampleRef = example;
+                        }}
+                    />
+                </View>
+            );
         }
-        console.log('return')
-        return (
-            <View style={styles.container}>
-                <TitleBarComponent
-                    title="学习记录"
-                />
-                <ExampleList
-                    onNavigate={this._handleAction}
-                    list={TestExamplesList}
-                />
-            </View>
-        );
     }
-
-    _handleAction = (action: Object): boolean => {
-        console.log('_handleAction')
-        const newState = TestNavigationReducer(this.state, action);
-        console.log(newState)
-        this.setState(
-            newState
-        );
-        return true;
-        return false;
-    };
-    _handleBackButtonPress = () => {
-        if (
-            this._exampleRef &&
-            this._exampleRef.handleBackAction &&
-            this._exampleRef.handleBackAction()
-        ) {
-            return true;
-        }
-        return this._handleAction(TestActions.Back());
-    };
 }
 const styles = StyleSheet.create({
     container: {
@@ -131,4 +73,3 @@ const styles = StyleSheet.create({
         height: 56,
     },
 });
-AppRegistry.registerComponent('helloReactNative', () => ComponentTest)
