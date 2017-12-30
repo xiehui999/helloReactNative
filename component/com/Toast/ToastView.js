@@ -30,7 +30,7 @@ class ToastView extends Component {
         console.log("constructor:ToastView")
         this.state = {
             message: props.message !== undefined ? props.message : '',
-            time: props.time && props.time > 1500 ? Toast.SHORT : Toast.LONG,
+            time: props.time && props.time < 1500 ? Toast.SHORT : Toast.LONG,
         }
     }
 
