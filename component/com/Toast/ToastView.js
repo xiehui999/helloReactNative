@@ -48,7 +48,8 @@ class ToastView extends Component {
     componentWillReceiveProps(nextProps) {
         console.log("nextProps", nextProps)
         this.setState({
-            message: nextProps.message !== undefined ? nextProps.message : ''
+            message: nextProps.message !== undefined ? nextProps.message : '',
+            time: nextProps.time && nextProps.time < 1500 ? Toast.SHORT : Toast.LONG,
         })
         clearTimeout(this.dismissHandler)
         this.timingDismiss()
