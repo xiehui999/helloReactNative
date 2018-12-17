@@ -1,5 +1,6 @@
-import React,{Component,PropTypes} from 'react'
+import React,{Component} from 'react'
 import {View,Text} from 'react-native'
+import PropTypes from 'prop-types'
 export default class PropsTest extends Component{
     //默认属性，如果上一级页面没有传值时，则显示默认值
     static  defaultProps={

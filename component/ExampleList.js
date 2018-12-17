@@ -23,7 +23,11 @@ class RowComponent extends PureComponent {
             platform === Platform.OS ?
                 <TouchableHighlight {...this.props} onPress={() => {
                     console.log("item", item.key)
-                    Actions.ComponentTest({ExampleKey: item.key})
+                    if(TestExamplesList.Modules[item.key]){
+                        Actions.ComponentTest({ExampleKey: item.key})
+                    }else{
+                        Actions[item.key]()
+                    }
                 }}>
                     <View style={styles.row}>
                         <Text style={styles.rowTitleText}>
@@ -50,14 +54,19 @@ export default class ExampleList extends React.Component {
     render() {
         const sections = [
             {
+                data: TestExamplesList.StudyExamples,
+                title: '学习总结',
+                key: 'a',
+            },
+            {
                 data: TestExamplesList.ComponentExamplesList,
                 title: '组件',
-                key: 'c',
+                key: 'b',
             },
             {
                 data: TestExamplesList.APIExamples,
                 title: 'API',
-                key: 'a',
+                key: 'c',
             },
         ];
         console.log(this.props.list)

@@ -12,16 +12,17 @@ import {
     View
 } from 'react-native';
 //使用组件导出的变量import HelloComponent,{name,address}from './learn/HelloComponent';
-import HelloComponent from './learn/HelloComponent';
-import LifecycleComponent from './learn/LifecycleComponent';
-import PropsTest from './learn/PropsTest';
-import StateTest from './learn/StateTest'
-import RefTest from './learn/RefTest'
-import Students from './learn/Students'
-import TouchableTest from './learn/TouchableTest'
-import ImageTest from "./learn/ImageTest";
-
-export default class helloReactNative extends Component {
+import HelloComponent from './HelloComponent';
+import LifecycleComponent from './LifecycleComponent';
+import PropsTest from './PropsTest';
+import StateTest from './StateTest'
+import RefTest from './RefTest'
+import Students from './Students'
+import TouchableTest from './TouchableTest'
+import ImageTest from "./ImageTest";
+export const title = "HelloReactNative";
+export const description = "简单使用";
+export default class HelloReactNative extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -129,5 +130,3 @@ const styles = StyleSheet.create({
         flexWrap: 'nowrap',
     },
 });
-
-AppRegistry.registerComponent('helloReactNative', () => helloReactNative);

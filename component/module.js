@@ -124,7 +124,14 @@ const ComponentExamplesList: Array<ComponentExample> = [
     },
 ]
 const Modules = {};
-
+const StudyExamples: Array<ComponentExample> = [
+    {
+        key: 'RoutePlanExample',
+        module: require('../learn/RoutePlanExample')
+    }, {
+        key: 'HelloReactNative',
+        module: require('../learn/HelloReactNative')
+    },];
 const APIExamples: Array<ComponentExample> = [
     {
         key: 'AlertExample',
@@ -164,6 +171,7 @@ APIExamples.concat(ComponentExamplesList).forEach(Example => {
 });
 const TestExamplesList = {
     ComponentExamplesList,
+    StudyExamples,
     APIExamples,
     Modules
 }

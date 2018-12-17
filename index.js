@@ -8,9 +8,7 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
 } from 'react-native';
-// import setup from './setup'
 import Example from './component/App'
 
-// AppRegistry.registerComponent('helloReactNative', () => setup);
 AppRegistry.registerComponent('helloReactNative', () => Example);
 

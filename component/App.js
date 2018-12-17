@@ -6,6 +6,8 @@ import React from 'react'
 import {Scene, Router, Stack} from 'react-native-router-flux'
 import ExampleList from './ExampleList'
 import ComponentTest from './ComponentTest'
+import HelloReactNative from '../learn/HelloReactNative'
+import RoutePlanExample from '../learn/RoutePlanExample'
 
 export default class App extends React.Component {
 
@@ -14,6 +16,8 @@ export default class App extends React.Component {
             <Scene key="root">
                 <Scene key="ExampleList" component={ExampleList} title="Login"/>
                 <Scene key="ComponentTest" component={ComponentTest} title="学习记录"/>
+                <Scene key="RoutePlanExample" component={RoutePlanExample} title="路径规划"/>
+                <Scene key="HelloReactNative" component={HelloReactNative} title="简单使用"/>
             </Scene>
         </Router>
     }
