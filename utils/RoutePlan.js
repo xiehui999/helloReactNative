@@ -1,4 +1,4 @@
-import {Linking,Platform} from 'react-native'
+import {Linking, Platform} from 'react-native'
 //transit 公交
 //navigation 导航（百度）
 //driving 驾车
@@ -15,27 +15,38 @@ export default class RoutePlan {
     static isInstallAmap = () => {
         return new Promise((resolve, reject) => {
             Linking.canOpenURL(Platform.OS === "android" ? "amapuri://route/plan/" : "iosamap://path").then(supported => {
+                console.log("--------------:isInstallAmap", supported)
+
                 resolve(supported)
-            }).catch(resolve(false))
+            }).catch(err => {
+                resolve(false)
+            })
         })
     }
     static isInstallBaiDuMap = () => {
         return new Promise((resolve, reject) => {
             Linking.canOpenURL("baidumap://map/direction").then(supported => {
                 resolve(supported)
-            }).catch(resolve(false))
+                console.log("--------------:", supported)
+            }).catch(err => {
+                console.log("-------------11:", err)
+                resolve(false)
+            })
         })
     }
     static isInstallQQMap = () => {
         return new Promise((resolve, reject) => {
             Linking.canOpenURL("qqmap://map/routeplan").then(supported => {
                 resolve(supported)
-            }).catch(resolve(false))
+            }).catch(err => {
+                resolve(false)
+            })
         })
     }
     /**
      * 打开高德地图导航
      * @param {String} data.sname - 起点名字.
+     * @param {String} data.sourceApplication - 应用名字.
      * @param {String|number} data.slon - 起点经度.
      * @param {String|number} data.slat - 起点纬度.
      * @param {String} data.dname - 终点名字.
@@ -44,14 +55,14 @@ export default class RoutePlan {
      * @param{Mode} data.mode 导航类型
      * @param data
      */
-   static openAmap = (data = {}) => {
-        let base = Platform.OS === "android" ? "amapuri://route/plan/？" : "iosamap://path？"
+    static openAmap = (data = {}) => {
+        let base = Platform.OS === "android" ? "amapuri://route/plan/?" : "iosamap://path?"
         return new Promise((resolve, reject) => {
+            base+=`sourceApplication=${data.sourceApplication||"test"}`
             //起点经纬度不传，则自动将用户当前位置设为起点
             if (!data.dlat || !data.dlon) {
-                resolve("需要终点经纬度")
+                reject("需要终点经纬度")
             } else {
-
                 if (data.slon && data.slat) {
                     base += `&slat=${data.slat}&slon=${data.slon}`
                 }
@@ -63,7 +74,7 @@ export default class RoutePlan {
                 }
                 base += `&dlat=${data.dlat}&dlon=${data.dlon}&dev=0&t=${data.mode ? (data.mode.amap || 0) : 0}`
                 Linking.openURL(base).then(res => {
-
+                    resolve("打开成功")
                 }).catch(err => {
                     reject("暂无安装高德地图")
                 })
@@ -87,7 +98,7 @@ export default class RoutePlan {
         return new Promise((resolve, reject) => {
             //起点经纬度不传，则自动将用户当前位置设为起点
             if (!data.slat || !data.slon || !data.dlat || !data.dlon) {
-                resolve("需要起点终点经纬度")
+                reject("需要起点终点经纬度")
             } else {
                 if (data.sname) {
                     base += `&from=${data.sname}`
@@ -98,7 +109,7 @@ export default class RoutePlan {
                 }
                 base += `&type=${data.mode ? (data.mode.qMap || "drive") : "drive"}`
                 Linking.openURL(base).then(res => {
-
+                    resolve("打开成功")
                 }).catch(err => {
                     reject("暂无安装腾讯地图")
                 })
@@ -122,7 +133,7 @@ export default class RoutePlan {
         return new Promise((resolve, reject) => {
             //起点经纬度不传，则自动将用户当前位置设为起点
             if (!data.dlat || !data.dlon) {
-                resolve("需要终点经纬度")
+                reject("需要终点经纬度")
             } else if (!data.dname && !data.dlon && !data.slat) {
                 reject("需要传终点名称或者经纬度")
             } else {
@@ -133,13 +144,13 @@ export default class RoutePlan {
                 }
 
                 if (data.dlon && data.dlat) {
-                    base += `destination=name:${data.dname}|latlng:${data.dlat},${data.dlon}`
+                    base += `&destination=name:${data.dname}|latlng:${data.dlat},${data.dlon}`
                 } else {
-                    base += `destination=${data.dname}`
+                    base += `&destination=${data.dname}`
                 }
                 base += `&mode=${data.mode ? (data.mode.baidu || "driving") : "driving"}`
                 Linking.openURL(base).then(res => {
-
+                    resolve("打开成功")
                 }).catch(err => {
                     reject("暂无安装百度地图")
                 })

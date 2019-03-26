@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text} from 'react-native'
+import {View, Text,Linking} from 'react-native'
 import RoutePlan from '../utils/RoutePlan'
 import Button from '../component/com/Button'
 
@@ -33,8 +33,8 @@ export default class RoutePlanExample extends Component {
                 style={{marginTop: 30}}
                 onPress={() => {
                     RoutePlan.openAmap({
-                        slat: 39.92848272, slon: 116.39560823, sname: "A",
-                        dlat: 39.98848272, dlon: 116.47560823, dname: "B",
+                        slat: 39.92848272, slon: 116.39560823, sname: "我的位置",
+                        dlat: 39.98848272, dlon: 116.47560823, dname: "北京",
                         mode: RoutePlan.Mode.DRIVING
                     }).then(res => alert(res)).catch(err => alert(err))
                 }}
@@ -54,7 +54,7 @@ export default class RoutePlanExample extends Component {
             <Button
                 style={{marginTop: 10}}
                 onPress={() => {
-                    RoutePlan.openAmap({
+                    RoutePlan.openBaiDuMap({
                         slat: 39.92848272, slon: 116.39560823, sname: "A",
                         dlat: 39.98848272, dlon: 116.47560823, dname: "B",
                         mode: RoutePlan.Mode.DRIVING
