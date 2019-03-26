@@ -35,7 +35,7 @@ export default class ComponentTest extends Component {
 
 
     componentWillMount() {
-        BackHandler.addEventListener('hardwareBackPress', this._handleBackButtonPress);
+        BackHandler.addEventListener('hardwareBackPress',()=>{});
     }
 
     render() {

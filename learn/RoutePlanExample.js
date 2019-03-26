@@ -43,7 +43,8 @@ export default class RoutePlanExample extends Component {
             <Button
                 style={{marginTop: 10}}
                 onPress={() => {
-                    RoutePlan.openAmap({
+
+                    RoutePlan.openQQMap({
                         slat: 39.92848272, slon: 116.39560823, sname: "A",
                         dlat: 39.98848272, dlon: 116.47560823, dname: "B",
                         mode: RoutePlan.Mode.DRIVING
