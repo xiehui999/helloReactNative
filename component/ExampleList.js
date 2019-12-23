@@ -24,8 +24,12 @@ class RowComponent extends PureComponent {
                 <TouchableHighlight {...this.props} onPress={() => {
                     console.log("item", item.key)
                     if(TestExamplesList.Modules[item.key]){
-                        Actions.ComponentTest({ExampleKey: item.key})
+                        console.log("item11", item.key)
+
+                        // Actions.ComponentTest({ExampleKey: item.key})
                     }else{
+                        console.log("item22", item.key)
+
                         Actions[item.key]()
                     }
                 }}>

@@ -131,6 +131,9 @@ const StudyExamples: Array<ComponentExample> = [
     }, {
         key: 'HelloReactNative',
         module: require('../learn/HelloReactNative')
+    }, {
+        key: 'Parent',
+        module: require('../learn/setState/Parent')
     },];
 const APIExamples: Array<ComponentExample> = [
     {
