@@ -50,6 +50,7 @@ export default class Child extends Component {
             resolve(100)
         })
         aPromise.then((value) => {
+
             ReactDom.unstable_batchedUpdates(() => {
                 this.setState({b: true})
                 console.log(this.state, 'first')

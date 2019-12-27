@@ -7,9 +7,9 @@
 		"test": "jest"
 	},
 	"dependencies": {
-		"react": "16.6.0",
+		"react": "^16.8.6",
 		"react-dom": "^16.12.0",
-		"react-native": "0.57.5",
+		"react-native": "0.59.10",
 		"react-native-router-flux": "^4.0.0-beta.24"
 	},
 	"devDependencies": {
@@ -21,8 +21,8 @@
 		"babel-plugin-module-resolver": "3.1.1",
 		"babel-preset-react-native": "5.0.2",
 		"jest": "23.6.0",
-		"metro-react-native-babel-preset": "0.48.1",
-		"react-test-renderer": "16.6.0-alpha.8af6728"
+		"metro-react-native-babel-preset": "0.51.1",
+		"react-test-renderer": "16.8.6"
 	},
 	"jest": {
 		"preset": "react-native"
