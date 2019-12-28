@@ -16,10 +16,11 @@ import {
     StyleSheet,
     Text,
     Easing,
+    ScrollView,
     TouchableOpacity,
     LayoutAnimation,
     Slider,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback, Dimensions
 } from 'react-native';
 import DecayDemo from "./DecayDemo";
 
@@ -202,11 +203,17 @@ export const examples = [
         render() {
             return <FadeInExample/>
         }
-    } ,   {
+    }, {
         title: 'DecayDemo',
         description: 'decay',
         render() {
             return <DecayDemo/>
+        }
+    }, {
+        title: 'Scroll',
+        description: '左右滑动时背景颜色变化',
+        render() {
+            return <ScrollBgDemo/>
         }
     }, {
         title: 'spring效果',
@@ -485,6 +492,49 @@ class CrossFadeExample extends Component {
     _onPressToggle = () => {
         this.setState((state) => ({toggled: !state.toggled}))
     }
+}
+
+class ScrollBgDemo extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            animatedValue: new Animated.Value(0)
+        };
+    }
+
+    scrollEvent(event) {
+
+    }
+
+    render() {
+        let {width} = Dimensions.get("window")
+        //extrapolate clamp  达到变化最大值时，outputRange也为最大值，不在继续变化，默认会继续变化
+        let interpolatedColor = this.state.animatedValue.interpolate({
+            inputRange: [0, 100],
+            outputRange: ['rgba(255, 255, 255, 1)', 'rgba(51, 156, 177,1)'],
+            extrapolate: 'clamp'
+        });
+
+        let event = Animated.event([
+            {
+                nativeEvent: {
+                    contentOffset: {
+                        x: this.state.animatedValue
+                    }
+                }
+            }
+        ]);
+        return <ScrollView horizontal onScroll={event} scrollEventThrottle={16}>
+            <Animated.View style={{
+                height: 100,
+                width: width * 2,
+                backgroundColor: interpolatedColor
+            }}/>
+        </ScrollView>
+    }
+
 }
 
 const styles = StyleSheet.create({
