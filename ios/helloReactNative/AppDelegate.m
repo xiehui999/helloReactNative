@@ -19,7 +19,7 @@
   NSURL *jsCodeLocation;
 
 //  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-    jsCodeLocation = [NSURL URLWithString:@"http://192.168.8.116:8081/index.bundle?platform=ios&dev=true&minify=true"];
+    jsCodeLocation = [NSURL URLWithString:@"http://192.168.8.116:8082/index.bundle?platform=ios&dev=true&minify=true"];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"helloReactNative"
                                                initialProperties:nil

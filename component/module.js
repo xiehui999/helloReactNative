@@ -142,7 +142,7 @@ const APIExamples: Array<ComponentExample> = [
     },
     {
         key: 'AnimatedExample',
-        module: require('./AnimatedExample')
+        module: require('./animated/AnimatedExample')
     }, {
         key: 'AppStateExample',
         module: require('./AppStateExample')

@@ -26,10 +26,9 @@ class RowComponent extends PureComponent {
                     if(TestExamplesList.Modules[item.key]){
                         console.log("item11", item.key)
 
-                        // Actions.ComponentTest({ExampleKey: item.key})
+                        Actions.ComponentTest({ExampleKey: item.key})
                     }else{
                         console.log("item22", item.key)
-
                         Actions[item.key]()
                     }
                 }}>

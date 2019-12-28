@@ -21,6 +21,7 @@ import {
     Slider,
     TouchableWithoutFeedback
 } from 'react-native';
+import DecayDemo from "./DecayDemo";
 
 var AnimatedSlider = Animated.createAnimatedComponent(Slider);
 
@@ -201,6 +202,12 @@ export const examples = [
         render() {
             return <FadeInExample/>
         }
+    } ,   {
+        title: 'DecayDemo',
+        description: 'decay',
+        render() {
+            return <DecayDemo/>
+        }
     }, {
         title: 'spring效果',
         description: 'spring动画能定义一系列常量映射到一组有序的变换,每个变化可以指定一个转换的范围',
@@ -212,7 +219,7 @@ export const examples = [
                         onPress={() => {
                             Animated.spring(this.anim, {
                                 toValue: 0,   // Returns to the start
-                                velocity: 3,  // Velocity makes it move
+                                velocity: 1,  // Velocity makes it move
                                 tension: -10, // Slow
                                 friction: 1,  // Oscillate a lot
                             }).start();
